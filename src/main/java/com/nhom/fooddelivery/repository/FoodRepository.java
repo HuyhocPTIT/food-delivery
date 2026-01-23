@@ -1,0 +1,8 @@
+package com.nhom.fooddelivery.repository;
+import com.nhom.fooddelivery.entity.Food;
+import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
+
+public interface FoodRepository extends JpaRepository<Food, Long> {
+    List<Food> findByShopId(Long shopId); // Lấy món ăn theo từng quán
+}
