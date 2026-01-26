@@ -1,27 +1,31 @@
 package com.nhom.fooddelivery.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
+
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "reviews")
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Integer rating; // 1 đến 5 sao
+    private Integer rating;
     private String comment;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user; // Ai là người đánh giá
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "food_id")
-    private Food food; // Đánh giá cho món ăn nào
+    private Food food;
 
     private LocalDateTime createdAt = LocalDateTime.now();
 }

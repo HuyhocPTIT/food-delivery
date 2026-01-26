@@ -1,29 +1,30 @@
 package com.nhom.fooddelivery.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "orders")
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Người đặt hàng
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private User customer;
 
-    // Quán ăn nhận đơn
     @ManyToOne
     @JoinColumn(name = "shop_id")
     private Shop shop;
 
-    // Shipper giao hàng (Lúc mới đặt thì cột này sẽ NULL)
     @ManyToOne
     @JoinColumn(name = "shipper_id")
     private User shipper;
@@ -32,4 +33,8 @@ public class Order {
     private String address;
     private String status; // PENDING, PREPARING, SHIPPING, DELIVERED, CANCELLED
     private LocalDateTime createdAt = LocalDateTime.now();
+
+    // Quan hệ song hướng với OrderDetail
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderDetail> orderDetails;
 }

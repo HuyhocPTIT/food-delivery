@@ -1,11 +1,16 @@
 package com.nhom.fooddelivery.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "shops")
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Shop {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,7 +19,14 @@ public class Shop {
     private String address;
     private String image;
 
-    @OneToOne // Mỗi quán ăn thường gắn với một tài khoản chủ quán
+    @OneToOne
     @JoinColumn(name = "owner_id")
     private User owner;
+
+    // Quan hệ song hướng với Food
+    @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL)
+    private List<Food> foods;
+
+    @OneToMany(mappedBy = "shop")
+    private List<Order> orders;
 }

@@ -1,20 +1,39 @@
 package com.nhom.fooddelivery.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
+
+import java.util.List;
 
 @Entity
-@Table(name = "users") // Spring sẽ tạo bảng tên 'users' trong MySQL
-@Data // Tự tạo Getter, Setter, toString... nhờ thư viện Lombok
+@Table(name = "users")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Tự động tăng ID (1, 2, 3...)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(unique = true, nullable = false)
     private String username;
-
     private String password;
     private String fullName;
-    private String role; // Phân quyền: CUSTOMER, MERCHANT, SHIPPER, ADMIN
+    private String role; // CUSTOMER, MERCHANT, SHIPPER, ADMIN
+
+    // Một người dùng có thể đặt nhiều đơn hàng
+    @OneToMany(mappedBy = "customer")
+    private List<Order> orders;
+
+    // Một người dùng (Merchant) có thể sở hữu một quán ăn
+    @OneToOne(mappedBy = "owner")
+    private Shop shop;
+
+    // Một người dùng (Shipper) có thể đi giao nhiều đơn
+    @OneToMany(mappedBy = "shipper")
+    private List<Order> shippingOrders;
+
+    @OneToMany(mappedBy = "user")
+    private List<Review> reviews;
 }

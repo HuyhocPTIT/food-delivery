@@ -1,11 +1,14 @@
 package com.nhom.fooddelivery.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 @Entity
 @Table(name = "order_details")
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class OrderDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,5 +23,5 @@ public class OrderDetail {
     private Food food;
 
     private Integer quantity;
-    private Double price; // Lưu giá tại thời điểm mua để tránh shop đổi giá sau này
+    private Double price;
 }

@@ -1,18 +1,36 @@
 package com.nhom.fooddelivery.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "foods")
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Food {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
     private Double price;
+    private String image;
     private String description;
-    private String image; // Lưu đường dẫn hoặc tên file ảnh
+
+    @ManyToOne
+    @JoinColumn(name = "shop_id")
+    private Shop shop;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+    @OneToMany(mappedBy = "food")
+    private List<OrderDetail> orderDetails;
+
+    @OneToMany(mappedBy = "food")
+    private List<Review> reviews;
 }
