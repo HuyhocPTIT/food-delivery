@@ -16,6 +16,6 @@ public class HomeController {
 
         // Trả về tên file JSP nằm trong thư mục /WEB-INF/jsp/
         // Bạn chỉ cần viết "welcome", Spring sẽ tự hiểu là file "welcome.jsp"
-        return "welcome";
+        return "trang chủ/welcome";
     }
 }
