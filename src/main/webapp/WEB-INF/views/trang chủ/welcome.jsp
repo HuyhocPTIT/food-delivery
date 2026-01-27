@@ -2,13 +2,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Chào mừng - Food Delivery</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Trang chủ Shopee Mall</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/home.css">
 </head>
-<body class="container mt-5">
-    <div class="alert alert-success">
-        <h1>chào các bố</h1>
-        <p>Dữ liệu từ Backend gửi sang: <strong>${message}</strong></p>
-    </div>
+<body>
+
+<jsp:include page="/WEB-INF/views/layout/Header.jsp" />
+
+<main style="min-height: 500px; padding: 20px;">
+    <h2>Chào mừng đến với Shopee Mall!</h2>
+</main>
+
+<jsp:include page="/WEB-INF/views/layout/Footer.jsp" />
+
 </body>
 </html>

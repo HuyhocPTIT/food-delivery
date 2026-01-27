@@ -1,0 +1,81 @@
+/* home.css */
+body {
+    margin: 0;
+}
+
+.shopee-header {
+    background-color: #d0011b;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: white;
+    padding: 10px 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* Thanh Top Bar */
+.navbar-top {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+}
+
+.navbar-top a {
+    color: white;
+    text-decoration: none;
+    margin-left: 15px;
+}
+
+/* Thanh Main Header */
+.header-main {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    min-width: 200px;
+}
+
+.mall-text {
+    font-size: 26px;
+    font-weight: 500;
+    border-left: 1px solid white;
+    padding-left: 10px;
+}
+
+/* Ô tìm kiếm */
+.search-box {
+    flex: 1;
+    display: flex;
+    background: white;
+    padding: 3px;
+    border-radius: 2px;
+    margin: 0 40px;
+}
+
+.search-input {
+    flex: 1;
+    border: none;
+    padding: 10px;
+    outline: none;
+    color: #333;
+}
+
+.search-btn {
+    background-color: #d0011b;
+    border: none;
+    color: white;
+    padding: 0 20px;
+    cursor: pointer;
+}
+
+.cart-icon {
+    font-size: 26px;
+    cursor: pointer;
+}
