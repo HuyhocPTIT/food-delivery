@@ -6,8 +6,8 @@
     <meta charset="UTF-8">
     <title>Đăng ký</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/home.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/auth.css">
+    <link rel="stylesheet" href="<c:url value='/css/home.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/auth.css'/>">
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/layout/Header.jsp" />
