@@ -42,6 +42,8 @@ body {
     margin-right: auto;
     display: flex;
     align-items: center;
+    color: white;
+    text-decoration: none;
 }
 
 .mall-text {
