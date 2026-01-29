@@ -1,3 +1,4 @@
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <header class="shopee-header">
     <div class="container">
@@ -10,16 +11,20 @@
                 <a href="#"><i class="fas fa-bell"></i> Thông báo</a>
                 <a href="#"><i class="fas fa-question-circle"></i> Hỗ trợ</a>
                 <a href="#"><i class="fas fa-globe"></i> Tiếng Việt</a>
-                <a href="#" style="font-weight: bold;">Đăng ký</a> |
-                <a href="#" style="font-weight: bold;">Đăng nhập</a>
+                <c:if test="${empty sessionScope.currentUser}">
+                    <span style="margin: 0 5px;">|</span>
+                    <a href="/register" style="font-weight: bold;">Đăng ký</a>
+                    <span style="margin: 0 5px;">|</span>
+                    <a href="/login" style="font-weight: bold;">Đăng nhập</a>
+                </c:if>
             </div>
         </div>
 
         <div class="header-main">
-            <div class="logo">
+            <a href="/" class="logo">
                 <i class="fas fa-shopping-bag" style="font-size: 40px; margin-right: 10px;"></i>
-                <span class="mall-text">Shopee Mall</span>
-            </div>
+                <span class="mall-text">Mạnh Mall</span>
+            </a>
 
             <div class="search-box">
                 <input type="text" placeholder="Tìm trong Shopee Mall" class="search-input">

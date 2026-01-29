@@ -1,5 +1,6 @@
 package com.nhom.fooddelivery.entity;
 
+import com.nhom.fooddelivery.constant.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,7 +21,8 @@ public class User {
     private String username;
     private String password;
     private String fullName;
-    private String role; // CUSTOMER, MERCHANT, SHIPPER, ADMIN
+    @Enumerated(EnumType.STRING) // Quan trọng: Lưu chữ "ADMIN" vào DB
+    private UserRole role;
 
     // Một người dùng có thể đặt nhiều đơn hàng
     @OneToMany(mappedBy = "customer")
