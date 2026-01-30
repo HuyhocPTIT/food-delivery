@@ -17,8 +17,7 @@ public class Shop {
     private Long id;
     private String name;
     private String address;
-    private String image;
-
+    private String image; // image này là logo của shop
     @OneToOne
     @JoinColumn(name = "owner_id")
     private User owner;
