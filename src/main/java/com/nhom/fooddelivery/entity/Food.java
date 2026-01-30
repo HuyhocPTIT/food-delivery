@@ -17,8 +17,8 @@ public class Food {
     private Long id;
     private String name;
     private Double price;
-    private String image;
-    private String description;
+    private String image; // image của món ( có thể có từ 1-2 ảnh )
+    private String description; // mô tả món
 
     @ManyToOne
     @JoinColumn(name = "shop_id")
