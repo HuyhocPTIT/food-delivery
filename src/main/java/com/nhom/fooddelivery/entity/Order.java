@@ -32,7 +32,13 @@ public class Order {
     private Double totalPrice;
     private String address;
     private String status; // PENDING, PREPARING, SHIPPING, DELIVERED, CANCELLED
+    private String phone;
     private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime deliveredAt; // Lưu thời điểm Shipper bấm "Đã giao thành công"
+
+    // Thêm đánh giá Shipper ngay tại đơn hàng để làm thống kê
+    private Integer shipperRating; // 1-5 sao
+    private String shipperReview;
 
     // Quan hệ song hướng với OrderDetail
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)

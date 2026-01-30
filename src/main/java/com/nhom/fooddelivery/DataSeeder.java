@@ -14,6 +14,7 @@ public class DataSeeder implements CommandLineRunner {
     @Autowired private ShopRepository shopRepo;
     @Autowired private CategoryRepository categoryRepo;
     @Autowired private FoodRepository foodRepo;
+    @Autowired private OrderRepository orderRepo;
 
     @Override
     public void run(String... args) throws Exception {
@@ -152,6 +153,12 @@ public class DataSeeder implements CommandLineRunner {
         f9.setImage("/images/banh-mi-khong.jpg");
 
         foodRepo.saveAll(Arrays.asList(f1, f2, f3, f4, f5, f6, f7, f8, f9));
+
+        Order completedOrder = new Order();
+        completedOrder.setShipper(shipper);
+        completedOrder.setStatus("DELIVERED");
+        completedOrder.setTotalPrice(50000.0);
+        orderRepo.save(completedOrder);
 
         System.out.println(">>> ĐÃ NẠP DỮ LIỆU MẪU THÀNH CÔNG!");
     }
