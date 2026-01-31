@@ -11,12 +11,27 @@
                 <a href="#"><i class="fas fa-bell"></i> Thông báo</a>
                 <a href="#"><i class="fas fa-question-circle"></i> Hỗ trợ</a>
                 <a href="#"><i class="fas fa-globe"></i> Tiếng Việt</a>
-                <c:if test="${empty sessionScope.currentUser}">
-                    <span style="margin: 0 5px;">|</span>
-                    <a href="/register" style="font-weight: bold;">Đăng ký</a>
-                    <span style="margin: 0 5px;">|</span>
-                    <a href="/login" style="font-weight: bold;">Đăng nhập</a>
-                </c:if>
+                <c:choose>
+                    <c:when test="${empty sessionScope.currentUser}">
+                        <span style="margin: 0 5px;">|</span>
+                        <a href="/register" style="font-weight: bold;">Đăng ký</a>
+                        <span style="margin: 0 5px;">|</span>
+                        <a href="/login" style="font-weight: bold;">Đăng nhập</a>
+                    </c:when>
+
+                    <c:otherwise>
+                        <span style="margin: 0 5px;">|</span>
+                        <span class="user-info" style="font-weight: bold; color: white;">
+                            <i class="fas fa-user-circle"></i> ${sessionScope.currentUser.fullName}
+                        </span>
+                        <span style="margin: 0 5px;">|</span>
+                        <a href="${pageContext.request.contextPath}/logout"
+                           onclick="return confirm('Bạn có muốn đăng xuất?')"
+                           style="color: #fff; font-weight: normal;">
+                           Đăng xuất
+                        </a>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
 
