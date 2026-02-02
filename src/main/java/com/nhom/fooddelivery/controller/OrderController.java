@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
-@RequestMapping("orders")
+@RequestMapping("/orders")
 public class OrderController {
 
     @Autowired
@@ -42,7 +42,7 @@ public class OrderController {
             orderRepository.save(order);
         }
 
-        return "redict:/orders/delivery?shipperId=" + shipperId;
+        return "redirect:/orders/delivery?shipperId=" + shipperId;
     }
 
     // 3. Đơn đang giao của Shipper
@@ -72,7 +72,7 @@ public class OrderController {
             orderRepository.save(order);
         }
 
-        return "redirect:/orders/delivering?shiperId=" + shipperId;
+        return "redirect:/orders/delivering?shipperId=" + shipperId;
     }
 
     // 5. Thống kê đơn đã giao

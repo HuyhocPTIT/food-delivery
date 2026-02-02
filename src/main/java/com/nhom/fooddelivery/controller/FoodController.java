@@ -28,7 +28,7 @@ public class FoodController {
     @GetMapping
     public String listFoods(Model model) {
         model.addAttribute("foods", foodRepository.findAll());
-        return "auth/food-list"; // food-list.jsp
+        return "merchant/food-list"; // food-list.jsp
     }
 
     // =======================
@@ -39,7 +39,7 @@ public class FoodController {
         model.addAttribute("food", new Food());
         model.addAttribute("shops", shopRepository.findAll());
         model.addAttribute("categories", categoryRepository.findAll());
-        return "auth/food-form"; // food-form.jsp
+        return "merchant/food-form"; // food-form.jsp
     }
 
     // =======================
@@ -70,7 +70,7 @@ public class FoodController {
         model.addAttribute("food", food);
         model.addAttribute("shops", shopRepository.findAll());
         model.addAttribute("categories", categoryRepository.findAll());
-        return "auth/food-form";
+        return "merchant/food-form";
     }
 
     // =======================
