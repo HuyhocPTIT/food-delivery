@@ -8,13 +8,29 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="<c:url value='/css/home.css'/>">
 </head>
-<body>
+<body style="background-color: #f5f5f5;"> <jsp:include page="/WEB-INF/views/layout/Header.jsp" />
 
-<jsp:include page="/WEB-INF/views/layout/Header.jsp" />
+<div class="container">
+    <h2 style="margin: 20px 0; color: #ee4d2d; border-bottom: 2px solid #ee4d2d; display: inline-block; padding-bottom: 5px;">
+        GỢI Ý HÔM NAY
+    </h2>
 
-<main style="min-height: 500px; padding: 20px;">
-    <h2>Chào mừng đến với Mạnh Mall!</h2>
-</main>
+    <div class="product-grid">
+        <c:forEach items="${foods}" var="f">
+            <a href="${pageContext.request.contextPath}/food/detail/${f.id}" class="product-link">
+                <div class="product-card">
+                    <img src="${pageContext.request.contextPath}${f.image}" alt="${f.name}">
+
+                    <div class="product-info">
+                        <p class="product-name">${f.name}</p>
+                        <p class="product-price">${f.price}đ</p>
+                        <p class="product-description">${f.description}</p>
+                    </div>
+                </div>
+            </a>
+        </c:forEach>
+    </div>
+</div>
 
 <jsp:include page="/WEB-INF/views/layout/Footer.jsp" />
 
