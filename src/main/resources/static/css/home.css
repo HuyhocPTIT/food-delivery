@@ -124,3 +124,37 @@ body {
 .footer-company-info p {
     margin: 5px 0;
 }
+/* 1. Định dạng lưới 3 cột */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Ép đúng 3 cột */
+    gap: 15px; /* Khoảng cách giữa các sản phẩm */
+    padding: 20px;
+}
+
+/* 2. Định dạng thẻ bao quanh sản phẩm */
+.product-card {
+    background: white;
+    border: 1px solid #efefef;
+    border-radius: 2px;
+    overflow: hidden; /* Để ảnh không tràn ra ngoài border-radius */
+    transition: transform 0.2s;
+}
+
+/* 3. QUAN TRỌNG: Khống chế kích thước ảnh */
+.product-card img {
+    width: 100%;       /* Ảnh rộng bằng đúng thẻ bao quanh */
+    height: 250px;     /* Chiều cao cố định để các ảnh đều nhau */
+    object-fit: cover; /* Giúp ảnh không bị méo khi co giãn */
+    display: block;
+}
+
+.product-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 1px 20px rgba(0,0,0,0.1);
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
