@@ -1,6 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 <html>
 <head>
     <title>Food Form</title>
@@ -24,7 +23,7 @@
     <input type="number" step="0.01" name="price" value="${food.price}" required>
 
     <label>Link hình ảnh</label>
-    <input type="text" name="image" value="${food.image}">
+    <input type="file" name="image" value="${food.image}" accept="image/*">
 
     <label>Mô tả</label>
     <textarea name="description">${food.description}</textarea>
