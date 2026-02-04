@@ -20,7 +20,8 @@
 </p>
 
 <p><b>Mô tả:</b> ${food.description}</p>
-<p><b>Shop:</b> ${food.shop.name}</p>
+<p><b>Shop:</b>
+    <a href="${pageContext.request.contextPath}/shops/${food.shop.id}">${food.shop.name}</a></p>
 <p><b>Danh mục:</b> ${food.category.name}</p>
 
 <br>
