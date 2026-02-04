@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<%@ taglib uri="jakarta.tags.fmt" prefix="fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +25,9 @@
 
                     <div class="product-info">
                         <p class="product-name">${f.name}</p>
-                        <p class="product-price">${f.price}đ</p>
+                        <p class="product-price">
+                            <fmt:formatNumber value="${f.price}" type="number" groupingUsed="true"/> đ
+                        </p>
                         <p class="product-description">${f.description}</p>
                     </div>
                 </div>
