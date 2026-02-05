@@ -1,6 +1,5 @@
 body {
     font-family: Arial, sans-serif;
-    padding: 30px;
     background: #f7f7f7;
 }
 
@@ -13,6 +12,7 @@ table {
     width: 100%;
     border-collapse: collapse;
     background: white;
+    padding: 30px;
 }
 
 table th, table td {

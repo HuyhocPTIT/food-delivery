@@ -2,12 +2,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>Quản lý món ăn</title>
+    <title>Danh sách món ăn</title>
     <link rel="stylesheet" href="/css/shop.css">
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
 
-<h2>🍔 DANH SÁCH MÓN ĂN</h2>
+<jsp:include page="/WEB-INF/views/layout/Header.jsp" />
+<h2>🍔 DANH SÁCH CỬA HÀNG</h2>
 
 
 <table>
@@ -16,9 +19,6 @@
         <th>Tên shop</th>
         <th>address</th>
         <th>Hình ảnh</th>
-        <th>Thao tác</th>
-
-
     </tr>
 
     <c:forEach items="${shops}" var="shop">
@@ -33,16 +33,11 @@
             <td>
             <img src="${pageContext.request.contextPath}${shop.image}" width="80">
             </td>
-            <td>
-                <a class="btn-edit" href="/shops/edit/${shop.id}">✏️</a>
-                <a class="btn-delete"
-                   href="/shops/delete/${shop.id}"
-                   onclick="return confirm('Xóa shop này?')">🗑</a>
-            </td>
         </tr>
     </c:forEach>
 
 </table>
+<jsp:include page="/WEB-INF/views/layout/Footer.jsp" />
 
 </body>
 </html>
