@@ -1,6 +1,8 @@
 package com.nhom.fooddelivery.repository;
 import com.nhom.fooddelivery.entity.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -13,4 +15,12 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     // Thống kê: Đếm số đơn đã giao thành công của 1 Shipper
     Long countByShipperIdAndStatus(Long shipperId, String status);
+
+    // Tính thu nhập: tổng tiền ship của các đơn hành giao thành công
+    @Query("SELECT SUM(o.totalPrice) FROM Order o WHERE o.shipper.id = :shipperId AND o.status = 'DELIVERED'")
+    Double sumEarningsByShipper(@Param("shipperId") Long shipperId);
+
+    // Điểm đánh giá trung bình
+    @Query("SELECT AVG(o.shipperRating) FROM Order o WHERE o.shipper.id = :shipperId AND o.shipperRating IS NOT NULL")
+    Double getAverageRatingByShipper(@Param("shipperId") Long shipperId);
 }

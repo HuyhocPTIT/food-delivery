@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/orders")
@@ -42,7 +43,7 @@ public class OrderController {
             orderRepository.save(order);
         }
 
-        return "redirect:/orders/delivery?shipperId=" + shipperId;
+        return "redirect:/orders/delivering?shipperId=" + shipperId;
     }
 
     // 3. Đơn đang giao của Shipper
@@ -81,9 +82,20 @@ public class OrderController {
             @RequestParam Long shipperId,
             Model model
     ){
+        // số đơn đã giao
         Long deliveredCount =
                 orderRepository.countByShipperIdAndStatus(shipperId, "DELIVERED");
 
+        // tổng tiền đã giao
+        Double totalEarnings =
+                Optional.ofNullable(orderRepository.sumEarningsByShipper(shipperId)).orElse(0.0);
+
+        // điểm đánh giá shipper trung bình
+        Double avgRating =
+                Optional.ofNullable(orderRepository.getAverageRatingByShipper(shipperId)).orElse(0.0);
+
+        model.addAttribute("totalEarnings", totalEarnings);
+        model.addAttribute("avgRating", avgRating);
         model.addAttribute("deliveredCount", deliveredCount);
         return "shipper/order-stats";
     }
