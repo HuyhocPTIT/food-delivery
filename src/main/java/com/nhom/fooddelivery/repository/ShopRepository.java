@@ -13,7 +13,8 @@ public interface ShopRepository extends JpaRepository<Shop, Long> {
     List<Shop> findByNameContainingIgnoreCase(String name);
 
     // Lấy shop theo owner
-    List<Shop> findByOwner(User owner);
+    // Tìm Shop dựa trên người sở hữu
+    Shop findByOwnerId(Long ownerId);
 
     // Kiểm tra owner đã có shop chưa
     boolean existsByOwner(User owner);

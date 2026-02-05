@@ -1,4 +1,4 @@
-package com.nhom.fooddelivery.controller;
+package com.nhom.fooddelivery.controller.admin;
 
 import com.nhom.fooddelivery.constant.UserRole;
 import com.nhom.fooddelivery.entity.User;

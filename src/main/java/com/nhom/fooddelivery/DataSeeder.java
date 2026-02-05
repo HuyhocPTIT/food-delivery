@@ -69,6 +69,7 @@ public class DataSeeder implements CommandLineRunner {
         shop.setAddress("123 Cầu Giấy, Hà Nội");
         shop.setImage("/images/com-ga-shop.jpg");
         shop.setOwner(owner);
+        shop.setStatus("ACTIVE");
         shopRepo.save(shop);
 
         Shop shop2 = new Shop();
@@ -76,6 +77,7 @@ public class DataSeeder implements CommandLineRunner {
         shop2.setAddress("123 Hà Đông, Hà Nội");
         shop2.setImage("/images/quan-banh-mi.jpeg");
         shop2.setOwner(owner2);
+        shop2.setStatus("ACTIVE");
         shopRepo.save(shop2);
 
         Shop shop3 = new Shop();
@@ -83,6 +85,7 @@ public class DataSeeder implements CommandLineRunner {
         shop3.setAddress("123 Tràng Thi, Hà Nội");
         shop3.setImage("/images/quan-tra-sua.jpg");
         shop3.setOwner(owner3);
+        shop3.setStatus("ACTIVE");
         shopRepo.save(shop3);
 
         // 5. Tạo Món ăn (Food)

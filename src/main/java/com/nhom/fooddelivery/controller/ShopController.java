@@ -1,15 +1,14 @@
 package com.nhom.fooddelivery.controller;
 
+import com.nhom.fooddelivery.constant.UserRole;
 import com.nhom.fooddelivery.entity.*;
 import com.nhom.fooddelivery.repository.*;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.text.NumberFormat;
 import java.util.List;
-import java.util.Locale;
 
 @Controller
 @RequestMapping("/shops")
@@ -21,9 +20,9 @@ public class ShopController {
     @Autowired
     private ShopRepository shopRepository;
 
-
-
-
+    // ==========================================
+    // PHẦN 1: PUBLIC (KHÁCH HÀNG XEM)
+    // ==========================================
 
     // =======================
     // 1️⃣ HIỂN THỊ DANH SÁCH SHOP
@@ -82,25 +81,88 @@ public class ShopController {
 //        return "redirect:/foods";
 //    }
 
-    // =======================
-    // 5️⃣ FORM SỬA FOOD
-    // =======================
-    @GetMapping("/edit/{id}")
-    public String editShop(@PathVariable Long id, Model model) {
-        Shop shop = shopRepository.findById(id).orElse(null);
-        model.addAttribute("shop", shop);
+    // ==========================================
+    // PHẦN 2: MERCHANT (QUẢN LÝ QUÁN CỦA MÌNH)
+    // ==========================================
 
+    // 3️⃣ Form đăng ký mở quán (Dành cho User muốn lên Merchant)
+    @GetMapping("/register")
+    public String showRegisterForm(HttpSession session, Model model) {
+        User currentUser = (User) session.getAttribute("currentUser");
+
+        if (currentUser == null) {
+            return "redirect:/login";
+        }
+        // Nếu đã là Merchant rồi thì không cho đăng ký mới (Vì OneToOne)
+        if(currentUser.getRole() == UserRole.MERCHANT){
+            return "redirect:/shops/my-shop/edit";
+        }
+
+        model.addAttribute("shop", new Shop());
+
+        return  "merchant/shop-register";
+    }
+
+    @PostMapping("/register")
+    public String processRegisterShop(@ModelAttribute Shop shop, HttpSession session) {
+        User currentUser = (User) session.getAttribute("currentUser");
+        if(currentUser == null ) return "redirect:/login";
+
+        // Gán chủ sở hữu là người đang đăng nhập
+        shop.setOwner(currentUser);
+
+        // set status
+        shop.setStatus("PENDING");
+
+        shopRepository.save(shop);
+
+        return "redirect:/profile?message=cho_duyet";
+    }
+
+
+    // =======================
+    // Form sửa quán
+    // =======================
+    @GetMapping("/my-shop/edit")
+    public String editMyShop(HttpSession session, Model model) {
+
+        User currentUser = (User) session.getAttribute("currentUser");
+
+        // merchant mới được vào
+        if (currentUser == null || currentUser.getRole() != UserRole.MERCHANT) {
+            return "redirect:/login";
+        }
+        Shop shop = shopRepository.findByOwnerId(currentUser.getId());
+
+        // lỗi data, merchant nhưng chưa có shop
+        if(shop == null) return "redirect:/shops/register";
+
+        model.addAttribute("shop", shop);
         return "merchant/shop-form";
     }
 
     // =======================
-    // 6️⃣ XÓA FOOD
+    // update
     // =======================
-    @GetMapping("/delete/{id}")
-    public String deleteShop(@PathVariable Long id) {
-        shopRepository.deleteById(id);
-        return "redirect:/shops";
+    @PostMapping("/my-shop/update")
+    public String updateMyShop(@ModelAttribute Shop shopData, HttpSession session) {
+        User currentUser = (User) session.getAttribute("currentUser");
+
+        if(currentUser == null || currentUser.getRole() != UserRole.MERCHANT) return "redirect:/login";
+
+        Shop currentShop = shopRepository.findByOwnerId(currentUser.getId());
+
+        if(currentShop != null){
+            currentShop.setName(shopData.getName());
+            currentShop.setAddress(shopData.getAddress());
+            currentShop.setImage(shopData.getImage());
+
+            shopRepository.save(currentShop);
+        }
+
+        return "redirect:/shops/my-shop/edit?success=true";
     }
+
 
     // =======================
     // 7️⃣ JSON (test)

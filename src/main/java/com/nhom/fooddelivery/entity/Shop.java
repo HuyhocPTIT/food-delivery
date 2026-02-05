@@ -18,6 +18,9 @@ public class Shop {
     private String name;
     private String address;
     private String image; // image này là logo của shop
+
+    private String status = "PENDING"; // Mặc định khi tạo mới là chờ duyệt
+
     @OneToOne
     @JoinColumn(name = "owner_id")
     private User owner;
