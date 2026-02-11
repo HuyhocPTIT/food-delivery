@@ -50,6 +50,17 @@ public class ShopController {
         model.addAttribute("shop", shop);
         return "merchant/shop-detail";
     }
+    @GetMapping("/my-shop")
+    public String myShop(HttpSession session) {
+        User currentUser = (User) session.getAttribute("currentUser");
+        if (currentUser == null || currentUser.getRole() != UserRole.MERCHANT) {
+            return "redirect:/login";
+        }
+        Shop shop = shopRepository.findByOwnerId(currentUser.getId());
+        if (shop == null) return "redirect:/shops/register";
+
+        return "redirect:/shops/" + shop.getId();
+    }
 
 //    // =======================
 //    // 3️⃣ FORM THÊM FOOD
