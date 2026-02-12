@@ -1,0 +1,255 @@
+.shipper-container {
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 0 16px 40px;
+}
+
+.shipper-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.shipper-header h2 {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+}
+
+/*.shipper-nav {*/
+/*    display: flex;*/
+/*    gap: 12px;*/
+/*}*/
+
+/*.shipper-nav a {*/
+/*    text-decoration: none;*/
+/*    color: #ee4d2d;*/
+/*    font-weight: 600;*/
+/*}*/
+
+
+/*.shipper-nav {*/
+/*    background: #fff;*/
+/*    padding: 6px;*/
+/*    border-radius: 14px;*/
+/*    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);*/
+/*    display: inline-flex;*/
+/*    gap: 6px;*/
+/*}*/
+
+/*.shipper-nav.tab {*/
+/*    padding: 10px 18px;*/
+/*    border-radius: 10px;*/
+/*    font-weight: 600;*/
+/*    color: #ee4d2d;*/
+/*    text-decoration: none;*/
+/*    transition: all 0.3s ease;*/
+/*}*/
+
+/*.shipper-nav.tab:hover {*/
+/*    background: #fff0ec;*/
+/*    transform: translateY(-1px);*/
+/*}*/
+
+/*.shipper-nav.tab.active {*/
+/*    background: #ee4d2d;*/
+/*    color: #fff;*/
+/*    box-shadow: 0 4px 12px rgba(238, 777, 45, 0.4);*/
+/*}*/
+
+
+.shipper-nav {
+    display: inline-flex;
+    background: #fff;
+    padding: 6px;
+    border-radius: 999px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    gap: 6px;
+}
+
+/* tab */
+.shipper-nav .tab {
+    padding: 8px 18px;
+    border-radius: 999px;
+    font-weight: 600;
+    text-decoration: none;
+    color: #ee4d2d;
+    transition: all 0.25s ease;
+}
+
+/* hover */
+.shipper-nav .tab:hover {
+    background: #fff0ec;
+}
+
+/* active */
+.shipper-nav .tab.active {
+    background: #ee4d2d;
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(238,77,45,0.4);
+}
+
+.shipper-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    margin-bottom: 20px;
+}
+
+.shipper-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.shipper-table th,
+.shipper-table td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+    font-size: 14px;
+}
+
+.shipper-table th {
+    background: #fff7f5;
+    color: #ee4d2d;
+    font-weight: 600;
+}
+
+.shipper-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: #fff0ec;
+    color: #ee4d2d;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.shipper-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: none;
+    background: #ee4d2d;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.shipper-action.secondary {
+    background: #16a34a;
+}
+
+.shipper-empty {
+    text-align: center;
+    color: #777;
+    padding: 30px 0;
+}
+
+.shipper-summary {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.shipper-summary .summary-item {
+    flex: 1;
+    min-width: 200px;
+    background: #fff7f5;
+    border-radius: 12px;
+    padding: 16px;
+}
+
+.shipper-summary .summary-item h3 {
+    margin: 0 0 8px;
+    font-size: 16px;
+    color: #555;
+}
+
+.shipper-summary .summary-item p {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: #ee4d2d;
+}
+
+.rating {
+    position: relative;
+    display: inline-block;
+    font-size: 28px;
+    line-height: 1;
+}
+
+.rating-back {
+    color: #ddd;
+}
+
+.rating-front {
+    color: gold;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+/* ===== EFFECT CHO TABLE LIST ===== */
+
+.shipper-table tbody tr {
+    transition: all 0.25s ease;
+}
+
+.shipper-table tbody tr:hover {
+    background: #fff7f5;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.06);
+}
+
+/* bo tròn cả bảng */
+.shipper-table {
+    border-collapse: separate;
+    border-spacing: 0 10px;
+}
+
+.shipper-table tbody tr {
+    background: #fff;
+    border-radius: 12px;
+}
+
+/* làm hàng như card */
+.shipper-table td {
+    background: #fff;
+    border-bottom: none;
+}
+
+/* bo góc 2 đầu */
+.shipper-table td:first-child {
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+.shipper-table td:last-child {
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+/* animation fade in */
+.shipper-table tbody tr {
+    animation: fadeUp 0.4s ease forwards;
+    opacity: 0;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
