@@ -158,10 +158,49 @@ public class DataSeeder implements CommandLineRunner {
         foodRepo.saveAll(Arrays.asList(f1, f2, f3, f4, f5, f6, f7, f8, f9));
 
         Order completedOrder = new Order();
+        completedOrder.setAddress("39 Yên Xá - Thanh Trì");
         completedOrder.setShipper(shipper);
         completedOrder.setStatus("DELIVERED");
         completedOrder.setTotalPrice(50000.0);
+        completedOrder.setPhone("0987");
+        completedOrder.setShipperRating(4);
         orderRepo.save(completedOrder);
+
+        Order readyOrder1= new Order();
+        readyOrder1.setShipper(shipper);
+        readyOrder1.setAddress("Phùng Khoang - Nam Từ Liêm");
+        readyOrder1.setStatus("READY");
+        readyOrder1.setTotalPrice(150000.0);
+        readyOrder1.setPhone("0987654321");
+        readyOrder1.setShipperRating(5);
+        orderRepo.save(readyOrder1);
+
+        Order readyOrder2 = new Order();
+        readyOrder2.setShipper(shipper);
+        readyOrder2.setAddress("Văn Quán - Hà Đông");
+        readyOrder2.setStatus("READY");
+        readyOrder2.setTotalPrice(30000.0);
+        readyOrder2.setPhone("0918273645");
+        readyOrder2.setShipperRating(5);
+        orderRepo.save(readyOrder2);
+
+        Order shippingOrder1 = new Order();
+        shippingOrder1.setShipper(shipper);
+        shippingOrder1.setAddress("123 Nguyễn Trãi - Thanh Xuân");
+        shippingOrder1.setStatus("SHIPPING");
+        shippingOrder1.setTotalPrice(35000.0);
+        shippingOrder1.setPhone("54321");
+        shippingOrder1.setShipperRating(4);
+        orderRepo.save(shippingOrder1);
+
+        Order shippingOrder2 = new Order();
+        shippingOrder2.setShipper(shipper);
+        shippingOrder2.setAddress("84 Chùa Láng - Đống Đa");
+        shippingOrder2.setStatus("SHIPPING");
+        shippingOrder2.setTotalPrice(40000.0);
+        shippingOrder2.setPhone("67890");
+        shippingOrder2.setShipperRating(5);
+        orderRepo.save(shippingOrder2);
 
         System.out.println(">>> ĐÃ NẠP DỮ LIỆU MẪU THÀNH CÔNG!");
     }
