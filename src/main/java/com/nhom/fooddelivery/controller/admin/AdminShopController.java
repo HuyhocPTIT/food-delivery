@@ -58,6 +58,7 @@ public class AdminShopController {
             // duyệt user lên merchant
             User owner = shop.getOwner();
             owner.setRole(UserRole.MERCHANT);
+            owner.setStatus("ACTIVED");
             userRepository.save(owner);
         }
 

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -33,17 +34,5 @@ public class AdminController {
         model.addAttribute("totalOrders",  orderRepo.count());
 
         return "admin/dashboard";
-    }
-
-    // 2. Trang quản lý danh sách User
-    @GetMapping("/users")
-    public String listUsers(HttpSession session, Model model) {
-        User currentUser = (User) session.getAttribute("currentUser");
-        if(currentUser==null ||  currentUser.getRole()!=UserRole.ADMIN){
-            return "redirect:/login";
-        }
-
-        model.addAttribute("users",  userRepo.findAll());
-        return "admin/user-list";
     }
 }

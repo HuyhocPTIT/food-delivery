@@ -4,7 +4,7 @@
     <div class="container">
         <div class="navbar-top">
             <div class="navbar-left">
-                Trang chủ Shopee | Trở thành Người bán | Kết nối
+                Trang chủ Shopee | <a href="${pageContext.request.contextPath}/shops/register">Trở thành Người bán</a> | Kết nối
                 <i class="fab fa-facebook"></i> <i class="fab fa-instagram"></i>
             </div>
             <div class="navbar-right">
