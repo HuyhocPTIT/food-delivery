@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 
 @Controller
@@ -19,6 +21,8 @@ public class ShopController {
 
     @Autowired
     private ShopRepository shopRepository;
+
+    @Autowired UserRepository userRepository;
 
     // ==========================================
     // PHẦN 1: PUBLIC (KHÁCH HÀNG XEM)
@@ -115,17 +119,35 @@ public class ShopController {
     }
 
     @PostMapping("/register")
-    public String processRegisterShop(@ModelAttribute Shop shop, HttpSession session) {
+    public String processRegisterShop(
+            @ModelAttribute Shop shop,
+            @RequestParam("imageFile") MultipartFile imageFile, // Nhận file từ form
+            HttpSession session) {
+
         User currentUser = (User) session.getAttribute("currentUser");
-        if(currentUser == null ) return "redirect:/login";
+        if(currentUser == null) return "redirect:/login";
 
-        // Gán chủ sở hữu là người đang đăng nhập
+        // Xử lý lưu file (Tương tự như phần Admin mình đã nói)
+        if (!imageFile.isEmpty()) {
+            try {
+                String fileName = System.currentTimeMillis() + "_" + imageFile.getOriginalFilename();
+                String uploadDir = "src/main/resources/static/images/";
+                java.nio.file.Path path = java.nio.file.Paths.get(uploadDir + fileName);
+                java.nio.file.Files.copy(imageFile.getInputStream(), path, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+
+                shop.setImage("/images/shop/" + fileName); // Lưu đường dẫn vào DB
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
         shop.setOwner(currentUser);
-
-        // set status
         shop.setStatus("PENDING");
-
         shopRepository.save(shop);
+
+        // Cập nhật trạng thái User để Hùng (Admin) dễ lọc
+        currentUser.setStatus("PENDING_MERCHANT");
+        userRepository.save(currentUser);
 
         return "redirect:/profile?message=cho_duyet";
     }
