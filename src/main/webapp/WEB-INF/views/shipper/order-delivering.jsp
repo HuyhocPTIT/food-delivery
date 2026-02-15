@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<%@ taglib uri="jakarta.tags.fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,19 +27,20 @@
   </div>
 
   <div class="shipper-card">
-    <c:set var="resolvedShipperId" value="${not empty shipperId ? shipperId : sessionScope.currentUser.id}" />
     <c:choose>
       <c:when test="${empty orders}">
         <div class="shipper-empty">Bạn chưa nhận đơn nào để giao.</div>
       </c:when>
       <c:otherwise>
         <table class="shipper-table">
+          <fmt:setLocale value="vi_VN"/>
           <thead>
           <tr>
             <th>Mã đơn</th>
             <th>Khách hàng</th>
             <th>Địa chỉ giao</th>
             <th>Liên hệ</th>
+            <th>Tổng tiền</th>
             <th>Trạng thái</th>
             <th>Hành động</th>
           </tr>
@@ -50,11 +52,11 @@
               <td>${order.customer.fullName}</td>
               <td>${order.address}</td>
               <td>${order.phone}</td>
+              <td><fmt:formatNumber value="${order.totalPrice}" groupingUsed="true" maxFractionDigits="0"/></td>
               <td>Đang giao</td>
               <td>
                 <form action="${pageContext.request.contextPath}/orders/complete" method="post">
                   <input type="hidden" name="orderId" value="${order.id}" />
-                  <input type="hidden" name="shipperId" value="${resolvedShipperId}" />
                   <button type="submit" class="shipper-action secondary">
                     <i class="fas fa-circle-check"></i> Đã giao
                   </button>
