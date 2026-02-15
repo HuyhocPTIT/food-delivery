@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<%@ taglib uri="jakarta.tags.fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,8 +40,6 @@
             </div>
             <div class="summary-item">
                 <h3>Điểm đánh giá trung bình</h3>
-<%--                <p>${avgRating}</p>--%>
-<%--                <span class="summary-note">Trên thang 5 sao</span>--%>
                 <div class="rating" title="${avgRating}">
                     <div class="rating-back">
                         ★★★★★
@@ -58,6 +57,7 @@
         <c:choose>
             <c:when test="${not empty completedOrders}">
                 <table class="shipper-table">
+                    <fmt:setLocale value="vi_VN"/>
                     <thead>
                     <tr>
                         <th>ID</th>
@@ -73,7 +73,7 @@
                             <td>${order.id}</td>
                             <td>${order.address}</td>
                             <td>${order.phone}</td>
-                            <td>${order.totalPrice} đ</td>
+                            <td><fmt:formatNumber value="${order.totalPrice}" groupingUsed="true" maxFractionDigits="0"/> đ</td>
                             <td>${order.shipperRating} ⭐</td>
                         </tr>
                     </c:forEach>
