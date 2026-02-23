@@ -31,10 +31,31 @@ public class ShipperController {
             return "redirect:/login";
         }
 
-        List<Order> orders = orderRepository.findByStatus("READY");
+        Long readyCount = orderRepository.countByStatus("READY");
+        List<Order> deliveringOrders = orderRepository.findByShipperIdAndStatus(currentUser.getId(), "SHIPPING");
+        Long deliveringCount = (long) deliveringOrders.size();
+        Long deliveredCount =orderRepository.countByShipperIdAndStatus(currentUser.getId(), "DELIVERED");
+        Double avgRating = orderRepository.getAverageRatingByShipper(currentUser.getId());
+        avgRating = avgRating != null ? avgRating : 0.0;
 
+        model.addAttribute("readyCount", readyCount);
+        model.addAttribute("deliveringCount", deliveringCount);
+        model.addAttribute("deliveredCount", deliveredCount);
+        model.addAttribute("avgRating", avgRating);
+        model.addAttribute("deliveringOrders", deliveringOrders);
+        return "shipper/shipper-dashboard";
+    }
+
+    @GetMapping("/waiting")
+    public String watting(HttpSession session, Model model){
+        User currenUser = (User) session.getAttribute("currentUser");
+        if (currenUser == null || currenUser.getRole() != SHIPPER){
+            return "redirect:/login";
+        }
+
+        List<Order> orders = orderRepository.findByStatus("READY");
         model.addAttribute("orders", orders);
-        model.addAttribute("shipperId", currentUser.getId());
+        model.addAttribute("shipperId", session.getId());
         return "shipper/order-waiting";
     }
 

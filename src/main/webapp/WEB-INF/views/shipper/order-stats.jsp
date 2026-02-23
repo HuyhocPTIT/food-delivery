@@ -20,6 +20,7 @@
             <span class="shipper-badge">Tổng hợp</span>
         </div>
         <nav class="shipper-nav">
+            <a href="${pageContext.request.contextPath}/shipper/dashboard" class="tab">Tổng quan</a>
             <a href="${pageContext.request.contextPath}/shipper/dashboard" class="tab">Đơn chờ nhận</a>
             <a href="${pageContext.request.contextPath}/shipper/delivering" class="tab">Đang giao</a>
             <a href="${pageContext.request.contextPath}/shipper/stats" class="tab active">Thống kê</a>
