@@ -20,7 +20,8 @@
             <span class="shipper-badge">READY</span>
         </div>
         <nav class="shipper-nav">
-            <a href="${pageContext.request.contextPath}/shipper/dashboard" class="tab active">Đơn chờ nhận</a>
+            <a href="${pageContext.request.contextPath}/shipper/dashboard" class="tab">Tổng quan</a>
+            <a href="${pageContext.request.contextPath}/shipper/waiting" class="tab active">Đơn chờ nhận</a>
             <a href="${pageContext.request.contextPath}/shipper/delivering" class="tab">Đang giao</a>
             <a href="${pageContext.request.contextPath}/shipper/stats" class="tab">Thống kê</a>
         </nav>
