@@ -72,6 +72,11 @@
                                    title="${u.status == 'ACTIVED' ? 'Khóa' : 'Mở khóa'}">
                                     <i class="fas ${u.status == 'ACTIVED' ? 'fa-user-slash' : 'fa-user-check'}"></i>
                                 </a>
+                                <c:if test="${u.status == 'PENDING_MERCHANT'}">
+                                    <a href="/admin/users/approve-merchant/${u.id}" class="btn btn-sm btn-success">
+                                        <i class="fas fa-check"></i> Duyệt Merchant
+                                    </a>
+                                </c:if>
                             </div>
                         </td>
                     </tr>

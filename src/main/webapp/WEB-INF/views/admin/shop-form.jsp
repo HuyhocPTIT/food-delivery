@@ -41,7 +41,7 @@
                 <h5 class="mb-0 text-primary"><i class="fas fa-edit me-2"></i> Chỉnh sửa Cửa hàng</h5>
             </div>
             <div class="card-body p-4">
-                <form action="/admin/shops/update" method="post">
+                <form action="${pageContext.request.contextPath}/admin/shops/update" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="${shop.id}">
 
                     <div class="row">

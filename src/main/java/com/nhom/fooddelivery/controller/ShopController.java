@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class ShopController {
     // =======================
     @GetMapping
     public String listShops(Model model) {
-        List<Shop> shops= shopRepository.findAll();
+        List<Shop> shops= shopRepository.findByStatus("ACTIVE");
 
         model.addAttribute("shops", shops);
         return "merchant/shop-list";
@@ -122,12 +123,12 @@ public class ShopController {
     public String processRegisterShop(
             @ModelAttribute Shop shop,
             @RequestParam("imageFile") MultipartFile imageFile, // Nhận file từ form
-            HttpSession session) {
+            HttpSession session,
+            RedirectAttributes ra) {
 
         User currentUser = (User) session.getAttribute("currentUser");
         if(currentUser == null) return "redirect:/login";
 
-        // Xử lý lưu file (Tương tự như phần Admin mình đã nói)
         if (!imageFile.isEmpty()) {
             try {
                 String fileName = System.currentTimeMillis() + "_" + imageFile.getOriginalFilename();
@@ -135,7 +136,7 @@ public class ShopController {
                 java.nio.file.Path path = java.nio.file.Paths.get(uploadDir + fileName);
                 java.nio.file.Files.copy(imageFile.getInputStream(), path, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
 
-                shop.setImage("/images/shop/" + fileName); // Lưu đường dẫn vào DB
+                shop.setImage("/images/" + fileName); // Lưu đường dẫn vào DB
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -145,11 +146,12 @@ public class ShopController {
         shop.setStatus("PENDING");
         shopRepository.save(shop);
 
-        // Cập nhật trạng thái User để Hùng (Admin) dễ lọc
         currentUser.setStatus("PENDING_MERCHANT");
         userRepository.save(currentUser);
 
-        return "redirect:/profile?message=cho_duyet";
+        ra.addFlashAttribute("message", "pending");
+
+        return "redirect:/shops";
     }
 
 
