@@ -18,4 +18,6 @@ public interface ShopRepository extends JpaRepository<Shop, Long> {
 
     // Kiểm tra owner đã có shop chưa
     boolean existsByOwner(User owner);
+
+    List<Shop> findByStatus(String status);
 }
