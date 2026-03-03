@@ -48,9 +48,12 @@
                 </button>
             </div>
 
-            <a class="cart-link" href="${pageContext.request.contextPath}/cart" aria-label="Giỏ hàng">
-                <i class="fas fa-shopping-cart cart-icon"></i>
+            <a href="${pageContext.request.contextPath}/cart" class="cart-icon">
+                <i class="fa fa-shopping-cart"></i>
+
+
             </a>
+
 
         </div>
     </div>

@@ -79,15 +79,18 @@ body {
     cursor: pointer;
 }
 
+/* Cart icon */
 .cart-icon {
-    font-size: 26px;
-    cursor: pointer;
+    position: relative;
 }
 
 .cart-link {
     color: white;
     margin-left: 10px;
+    font-size: 22px;
 }
+
+
 /* --- CSS CHO FOOTER --- */
 .shopee-footer {
     background-color: #f5f5f5; /* Màu nền xám nhạt đặc trưng */

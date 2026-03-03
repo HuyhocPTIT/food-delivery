@@ -23,15 +23,47 @@
             <div class="cart-list">
                 <c:forEach items="${items}" var="item">
                     <div class="cart-item">
-                        <img src="${pageContext.request.contextPath}${item.food.image}" alt="${item.food.name}">
-                        <div class="cart-info">
+                        <img src="${pageContext.request.contextPath}${item.food.image}">
+
+                        <div>
                             <p class="cart-name">${item.food.name}</p>
-                            <p class="cart-desc">${item.food.description}</p>
                             <p class="cart-price">${item.food.price}đ</p>
                         </div>
-                        <div class="cart-qty">x${item.quantity}</div>
-                        <div class="cart-subtotal">${item.subtotal}đ</div>
+
+                        <div class="cart-qty">
+                            <form action="${pageContext.request.contextPath}/cart/update" method="post" class="qty-form">
+                                <input type="hidden" name="foodId" value="${item.food.id}">
+                                <button type="submit" name="quantity" value="${item.quantity - 1}" class="qty-btn">−</button>
+                                <input type="number" name="quantity" value="${item.quantity}" min="1" class="qty-input">
+                                <button type="submit" name="quantity" value="${item.quantity + 1}" class="qty-btn">+</button>
+                            </form>
+                        </div>
+
+                        <div class="cart-subtotal">
+                                ${item.subtotal}đ
+                        </div>
+
+                        <div class="cart-remove">
+                            <form action="${pageContext.request.contextPath}/cart/remove"
+                                  method="post"
+                                  onsubmit="return confirmRemove();">
+
+                                <input type="hidden" name="foodId" value="${item.food.id}">
+
+                                <button type="submit" class="remove-btn">
+                                    <i class="fa fa-trash"></i>
+                                    <span class="remove-text">Xóa</span>
+                                </button>
+                            </form>
+                        </div>
+
                     </div>
+                    <script>
+                        function confirmRemove() {
+                            return confirm("Bạn có chắc chắn muốn xóa món ăn này khỏi giỏ hàng không?");
+                        }
+                    </script>
+
                 </c:forEach>
             </div>
             <div class="cart-summary">
