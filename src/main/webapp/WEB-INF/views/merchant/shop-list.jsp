@@ -15,29 +15,43 @@
 
 <table>
     <tr>
-        <th>ID</th>
         <th>Tên shop</th>
-        <th>address</th>
+        <th>Địa chỉ</th>
         <th>Hình ảnh</th>
     </tr>
 
     <c:forEach items="${shops}" var="shop">
         <tr style="cursor:pointer"
             onclick="window.location='${pageContext.request.contextPath}/shops/${shop.id}'">
-            <td>${shop.id}</td>
             <td>
                 <a href="${pageContext.request.contextPath}/shops/${shop.id}" >
                         ${shop.name}
                 </a>
+            </td>
             <td>${shop.address}</td>
             <td>
-            <img src="${pageContext.request.contextPath}${shop.image}" width="80">
+                <img src="${pageContext.request.contextPath}${shop.image}" width="80">
             </td>
         </tr>
     </c:forEach>
 
 </table>
 <jsp:include page="/WEB-INF/views/layout/Footer.jsp" />
+
+<c:if test="${not empty message}">
+    <script>
+        const status = "${message}";
+        if (status === "pending") {
+            Swal.fire({
+                title: 'Đăng ký thành công!',
+                text: 'Yêu cầu mở quán của bạn đã được gửi.',
+                icon: 'success',
+                confirmButtonColor: '#0d6efd',
+                confirmButtonText: 'Đồng ý'
+            });
+        }
+    </script>
+</c:if>
 
 </body>
 </html>

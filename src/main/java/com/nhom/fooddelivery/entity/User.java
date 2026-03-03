@@ -24,6 +24,9 @@ public class User {
     @Enumerated(EnumType.STRING) // Quan trọng: Lưu chữ "ADMIN" vào DB
     private UserRole role;
 
+    //ACTIVED, BANNED, PENDING_MERCHANT, PENDING_SHIPPER
+    private String status = "ACTIVED";
+
     // Một người dùng có thể đặt nhiều đơn hàng
     @OneToMany(mappedBy = "customer")
     private List<Order> orders;

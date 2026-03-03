@@ -53,12 +53,16 @@ public class AdminShopController {
         Shop shop = shopRepository.findById(id).orElse(null);
         if(shop != null && shop.getStatus().equals("PENDING")){
             shop.setStatus("ACTIVE");
-            shopRepository.save(shop);
 
             // duyệt user lên merchant
             User owner = shop.getOwner();
-            owner.setRole(UserRole.MERCHANT);
-            userRepository.save(owner);
+            if(owner != null){
+                owner.setRole(UserRole.MERCHANT);
+                owner.setStatus("ACTIVED");
+                userRepository.save(owner);
+            }
+
+            shopRepository.save(shop);
         }
 
         return "redirect:/admin/shops";
@@ -73,6 +77,8 @@ public class AdminShopController {
 
         Shop shop = shopRepository.findById(id).orElse(null);
         shop.setStatus("BANNED");
+
+        shopRepository.save(shop);
 
         return "redirect:/admin/shops";
     }
@@ -90,49 +96,46 @@ public class AdminShopController {
     }
 
     @PostMapping("/update")
-    public String updateShop(@ModelAttribute Shop shop, HttpSession session, @RequestParam("imageFile") MultipartFile imageFile){
-        if(!isAdmin(session)){
+    public String updateShop(@ModelAttribute Shop shop, @RequestParam("imageFile") MultipartFile imageFile, HttpSession session) {
+        if (!isAdmin(session)) {
             return "redirect:/login";
         }
 
         Shop existingShop = shopRepository.findById(shop.getId()).orElse(null);
 
-        if(existingShop != null) {
+        if (existingShop != null) {
+            // 1. Cập nhật thông tin text
             existingShop.setName(shop.getName());
             existingShop.setAddress(shop.getAddress());
-            existingShop.setImage(shop.getImage());
-            if (!imageFile.isEmpty()) {
+            existingShop.setStatus(shop.getStatus());
+
+            // 2. Xử lý ảnh: Chỉ cập nhật nếu người dùng chọn file mới
+            if (imageFile != null && !imageFile.isEmpty()) {
                 try {
-                    // --- Cấu hình đường dẫn lưu file ---
-                    // Lưu vào thư mục tĩnh của dự án để hiển thị được ngay
+                    // Đường dẫn lưu file
                     String uploadDir = "src/main/resources/static/images/";
                     Path uploadPath = Paths.get(uploadDir);
 
-                    // Tạo thư mục nếu chưa tồn tại
                     if (!Files.exists(uploadPath)) {
                         Files.createDirectories(uploadPath);
                     }
 
-                    // --- Sinh tên file duy nhất (tránh bị trùng tên) ---
-                    // Ví dụ: avatar.jpg -> 550e8400-e29b..._avatar.jpg
                     String fileName = UUID.randomUUID().toString() + "_" + imageFile.getOriginalFilename();
-
-                    // --- Lưu file vào ổ cứng ---
                     Path filePath = uploadPath.resolve(fileName);
                     Files.copy(imageFile.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
-                    // --- Cập nhật đường dẫn trong DB (đường dẫn web) ---
-                    // Lưu ý: Đường dẫn trong DB bắt đầu bằng /images/...
-                    existingShop.setImage("/images/shop/" + fileName);
-
+                    // Lưu đường dẫn web vào DB
+                    existingShop.setImage("/images/" + fileName);
                 } catch (IOException e) {
                     e.printStackTrace();
-                    // Có thể thêm thông báo lỗi vào RedirectAttributes nếu muốn chuyên nghiệp hơn
                 }
             }
+            // Nếu không có file mới, existingShop.getImage() vẫn giữ nguyên giá trị cũ trong DB
 
             shopRepository.save(existingShop);
         }
+
+        // Lưu ý: Redirect về đúng trang danh sách shop của Admin
         return "redirect:/admin/shops";
     }
 }

@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.util.List;
 
 @Controller
@@ -20,6 +23,8 @@ public class ShopController {
     @Autowired
     private ShopRepository shopRepository;
 
+    @Autowired UserRepository userRepository;
+
     // ==========================================
     // PHẦN 1: PUBLIC (KHÁCH HÀNG XEM)
     // ==========================================
@@ -29,7 +34,7 @@ public class ShopController {
     // =======================
     @GetMapping
     public String listShops(Model model) {
-        List<Shop> shops= shopRepository.findAll();
+        List<Shop> shops= shopRepository.findByStatus("ACTIVE");
 
         model.addAttribute("shops", shops);
         return "merchant/shop-list";
@@ -49,6 +54,17 @@ public class ShopController {
 
         model.addAttribute("shop", shop);
         return "merchant/shop-detail";
+    }
+    @GetMapping("/my-shop")
+    public String myShop(HttpSession session) {
+        User currentUser = (User) session.getAttribute("currentUser");
+        if (currentUser == null || currentUser.getRole() != UserRole.MERCHANT) {
+            return "redirect:/login";
+        }
+        Shop shop = shopRepository.findByOwnerId(currentUser.getId());
+        if (shop == null) return "redirect:/shops/register";
+
+        return "redirect:/shops/" + shop.getId();
     }
 
 //    // =======================
@@ -104,19 +120,38 @@ public class ShopController {
     }
 
     @PostMapping("/register")
-    public String processRegisterShop(@ModelAttribute Shop shop, HttpSession session) {
+    public String processRegisterShop(
+            @ModelAttribute Shop shop,
+            @RequestParam("imageFile") MultipartFile imageFile, // Nhận file từ form
+            HttpSession session,
+            RedirectAttributes ra) {
+
         User currentUser = (User) session.getAttribute("currentUser");
-        if(currentUser == null ) return "redirect:/login";
+        if(currentUser == null) return "redirect:/login";
 
-        // Gán chủ sở hữu là người đang đăng nhập
+        if (!imageFile.isEmpty()) {
+            try {
+                String fileName = System.currentTimeMillis() + "_" + imageFile.getOriginalFilename();
+                String uploadDir = "src/main/resources/static/images/";
+                java.nio.file.Path path = java.nio.file.Paths.get(uploadDir + fileName);
+                java.nio.file.Files.copy(imageFile.getInputStream(), path, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+
+                shop.setImage("/images/" + fileName); // Lưu đường dẫn vào DB
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
         shop.setOwner(currentUser);
-
-        // set status
         shop.setStatus("PENDING");
-
         shopRepository.save(shop);
 
-        return "redirect:/profile?message=cho_duyet";
+        currentUser.setStatus("PENDING_MERCHANT");
+        userRepository.save(currentUser);
+
+        ra.addFlashAttribute("message", "pending");
+
+        return "redirect:/shops";
     }
 
 
