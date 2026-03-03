@@ -79,6 +79,29 @@ public class CartController {
         model.addAttribute("total", summary.total());
         return "checkout/checkout";
     }
+    @PostMapping("/cart/update")
+    public String updateCart(@RequestParam Long foodId,
+                             @RequestParam int quantity,
+                             HttpSession session) {
+
+        Map<Long, Integer> cart = getCart(session);
+
+        if (quantity <= 0) {
+            cart.remove(foodId); // số lượng <=0 thì xóa luôn
+        } else {
+            cart.put(foodId, quantity);
+        }
+        return "redirect:/cart";
+    }
+
+    @PostMapping("/cart/remove")
+    public String removeFromCart(@RequestParam Long foodId,
+                                 HttpSession session) {
+        Map<Long, Integer> cart = getCart(session);
+        cart.remove(foodId);
+        return "redirect:/cart";
+    }
+
 
     private boolean isAnonymous(HttpSession session) {
         return session.getAttribute("currentUser") == null;
