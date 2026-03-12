@@ -27,7 +27,6 @@
     <a href="${pageContext.request.contextPath}/admin/dashboard" class="active"><i class="fas fa-chart-line me-2"></i> Dashboard</a>
     <a href="${pageContext.request.contextPath}/admin/users"><i class="fas fa-users me-2"></i> Quản lý User</a>
     <a href="${pageContext.request.contextPath}/admin/shops"><i class="fas fa-store me-2"></i> Duyệt Cửa hàng</a>
-    <a href="${pageContext.request.contextPath}/admin/orders"><i class="fas fa-shopping-cart me-2"></i> Quản lý Đơn hàng</a>
     <hr>
     <a href="${pageContext.request.contextPath}/" target="_blank"><i class="fas fa-external-link-alt me-2"></i> Xem trang chủ</a>
     <a href="${pageContext.request.contextPath}/logout" class="text-danger"><i class="fas fa-sign-out-alt me-2"></i> Đăng xuất</a>
