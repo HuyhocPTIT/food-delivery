@@ -28,7 +28,6 @@
     <a href="${pageContext.request.contextPath}/admin/dashboard"><i class="fas fa-chart-line me-2"></i> Dashboard</a>
     <a href="${pageContext.request.contextPath}/admin/users" class="active"><i class="fas fa-users me-2"></i> Quản lý User</a>
     <a href="${pageContext.request.contextPath}/admin/shops"><i class="fas fa-store me-2"></i> Duyệt Cửa hàng</a>
-    <a href="${pageContext.request.contextPath}/admin/orders"><i class="fas fa-shopping-cart me-2"></i> Quản lý Đơn hàng</a>
     <hr class="mx-3">
     <a href="${pageContext.request.contextPath}/" target="_blank text-info"><i class="fas fa-external-link-alt me-2"></i> Xem trang chủ</a>
     <a href="${pageContext.request.contextPath}/logout" class="text-danger"><i class="fas fa-sign-out-alt me-2"></i> Đăng xuất</a>
@@ -60,21 +59,40 @@
                             </span>
                         </td>
                         <td class="text-center">
-                            <span class="badge ${u.status == 'ACTIVED' ? 'bg-success' : 'bg-warning'}">
-                                ${u.status}
-                            </span>
+                            <c:choose>
+                                <c:when test="${u.status == 'ACTIVED'}">
+                                    <span class="badge bg-success"><i class="fas fa-check"></i> Hoạt động</span>
+                                </c:when>
+                                <c:when test="${u.status == 'PENDING_MERCHANT'}">
+                                    <span class="badge bg-primary"><i class="fas fa-store"></i> Chờ duyệt quán</span>
+                                </c:when>
+                                <c:when test="${u.status == 'PENDING_SHIPPER'}">
+                                    <span class="badge bg-info"><i class="fas fa-truck"></i> Đợi làm Shipper</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <span class="badge bg-warning text-dark"><i class="fas fa-lock"></i> Đã khóa</span>
+                                </c:otherwise>
+                            </c:choose>
                         </td>
                         <td class="text-end">
-                            <div class="btn-group">
-                                <a href="/admin/users/edit/${u.id}" class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></a>
-                                <a href="/admin/users/toggle-status/${u.id}"
-                                   class="btn btn-sm ${u.status == 'ACTIVED' ? 'btn-outline-danger' : 'btn-outline-success'}"
-                                   title="${u.status == 'ACTIVED' ? 'Khóa' : 'Mở khóa'}">
-                                    <i class="fas ${u.status == 'ACTIVED' ? 'fa-user-slash' : 'fa-user-check'}"></i>
+                            <div class="btn-group shadow-sm">
+                                <a href="${pageContext.request.contextPath}/admin/users/edit/${u.id}"
+                                   class="btn btn-sm btn-outline-primary" title="Sửa thông tin">
+                                    <i class="fas fa-edit"></i>
                                 </a>
-                                <c:if test="${u.status == 'PENDING_MERCHANT'}">
-                                    <a href="/admin/users/approve-merchant/${u.id}" class="btn btn-sm btn-success">
-                                        <i class="fas fa-check"></i> Duyệt Merchant
+
+                                <c:if test="${u.status != 'PENDING_MERCHANT'}">
+                                    <a href="${pageContext.request.contextPath}/admin/users/toggle-status/${u.id}"
+                                       class="btn btn-sm ${u.status == 'ACTIVED' ? 'btn-outline-danger' : 'btn-outline-success'}"
+                                       title="${u.status == 'ACTIVED' ? 'Khóa tài khoản' : 'Kích hoạt tài khoản'}">
+                                        <i class="fas ${u.status == 'ACTIVED' ? 'fa-user-slash' : 'fa-user-check'}"></i>
+                                    </a>
+                                </c:if>
+
+                                <c:if test="${u.status == 'PENDING_SHIPPER'}">
+                                    <a href="${pageContext.request.contextPath}/admin/users/approve-shipper/${u.id}"
+                                       class="btn btn-sm btn-info text-white" title="Duyệt làm Tài xế">
+                                        <i class="fas fa-motorcycle"></i>
                                     </a>
                                 </c:if>
                             </div>
