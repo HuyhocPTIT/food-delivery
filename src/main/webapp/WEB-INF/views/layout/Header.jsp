@@ -4,7 +4,7 @@
     <div class="container">
         <div class="navbar-top">
             <div class="navbar-left">
-                Trang chủ Shopee | <a href="${pageContext.request.contextPath}/shops/register">Trở thành Người bán</a> | Kết nối
+                Trang chủ ManhMall | <a href="${pageContext.request.contextPath}/shops/register">Trở thành Người bán</a> | Kết nối
                 <i class="fab fa-facebook"></i> <i class="fab fa-instagram"></i>
             </div>
             <div class="navbar-right">
@@ -42,7 +42,7 @@
             </a>
 
             <div class="search-box">
-                <input type="text" placeholder="Tìm trong Shopee Mall" class="search-input">
+                <input type="text" placeholder="Tìm trong Mạnh Mall" class="search-input">
                 <button class="search-btn">
                     <i class="fas fa-search"></i>
                 </button>
