@@ -7,8 +7,7 @@
     <div class="container">
         <div class="navbar-top">
             <div class="navbar-left">
-                Trang chủ ManhMall | <a href="${pageContext.request.contextPath}/shops/register">Trở thành Người bán</a> | Kết nối
-                Trang chủ Shopee | <a href="${pageContext.request.contextPath}/shops/register">Trở thành Người bán</a> | <a href="${pageContext.request.contextPath}/shipper/register">Trở thành Shipper</a> | Kết nối
+                Trang chủ Mạnh Mall | <a href="${pageContext.request.contextPath}/shops/register">Trở thành Người bán</a> | <a href="${pageContext.request.contextPath}/shipper/register">Trở thành Shipper</a> | Kết nối
                 <i class="fab fa-facebook"></i> <i class="fab fa-instagram"></i>
             </div>
             <div class="navbar-right">
