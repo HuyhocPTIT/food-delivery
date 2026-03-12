@@ -1,12 +1,16 @@
 package com.nhom.fooddelivery.repository;
 
 import com.nhom.fooddelivery.entity.Food;
-import com.nhom.fooddelivery.entity.Shop;
 import com.nhom.fooddelivery.entity.Category;
-import org.springframework.data.jpa.repository.JpaRepository;
-
+import com.nhom.fooddelivery.entity.Shop;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository; // Dòng này cực kỳ quan trọng
+import org.springframework.stereotype.Repository;
 import java.util.List;
 
+
+@Repository
 public interface   FoodRepository extends JpaRepository<Food, Long> {
 
     // Lấy tất cả món theo shop
@@ -20,4 +24,13 @@ public interface   FoodRepository extends JpaRepository<Food, Long> {
 
     // Tìm món theo tên
     List<Food> findByNameContainingIgnoreCase(String keyword);
+
+    // 1. Lọc trong khoảng Min - Max
+    Page<Food> findByPriceBetween(Double min, Double max, Pageable pageable);
+
+    // 2. Lọc chỉ theo Min (Giá lớn hơn hoặc bằng)
+    Page<Food> findByPriceGreaterThanEqual(Double min, Pageable pageable);
+
+    // 3. Lọc chỉ theo Max (Giá nhỏ hơn hoặc bằng)
+    Page<Food> findByPriceLessThanEqual(Double max, Pageable pageable);
 }
