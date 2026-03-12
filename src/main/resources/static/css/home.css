@@ -117,6 +117,7 @@ body {
     cursor: pointer;
 }
 
+/* Cart icon */
 .cart-icon {
     font-size: 26px;
     color: white;
@@ -136,6 +137,23 @@ body {
     list-style: none;
     padding: 0;
     margin: 0;
+    position: relative;
+}
+
+.cart-link {
+    color: white;
+    margin-left: 10px;
+    font-size: 22px;
+}
+
+
+/* --- CSS CHO FOOTER --- */
+.shopee-footer {
+    background-color: #f5f5f5; /* Màu nền xám nhạt đặc trưng */
+    padding: 60px 0;
+    margin-top: 50px;
+    border-top: 4px solid #ee4d2d; /* Thanh cam mảnh phía trên footer */
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .cat-list li {

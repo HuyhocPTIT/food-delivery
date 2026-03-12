@@ -90,7 +90,7 @@ public class AuthController {
     // Hàm đăng xuất (xóa session)
     @GetMapping("/logout")
     public String logout(HttpSession session) {
-        session.removeAttribute("currentUser");
+        session.invalidate();
         return "redirect:/";
     }
 

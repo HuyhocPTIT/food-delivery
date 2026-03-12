@@ -28,7 +28,6 @@
     <a href="${pageContext.request.contextPath}/admin/dashboard"><i class="fas fa-chart-line me-2"></i> Dashboard</a>
     <a href="${pageContext.request.contextPath}/admin/users"><i class="fas fa-users me-2"></i> Quản lý User</a>
     <a href="${pageContext.request.contextPath}/admin/shops" class="active"><i class="fas fa-store me-2"></i> Duyệt Cửa hàng</a>
-    <a href="${pageContext.request.contextPath}/admin/orders"><i class="fas fa-shopping-cart me-2"></i> Quản lý Đơn hàng</a>
     <hr class="mx-3">
     <a href="${pageContext.request.contextPath}/" target="_blank text-info"><i class="fas fa-external-link-alt me-2"></i> Xem trang chủ</a>
     <a href="${pageContext.request.contextPath}/logout" class="text-danger"><i class="fas fa-sign-out-alt me-2"></i> Đăng xuất</a>
@@ -41,7 +40,7 @@
                 <h5 class="mb-0 text-primary"><i class="fas fa-edit me-2"></i> Chỉnh sửa Cửa hàng</h5>
             </div>
             <div class="card-body p-4">
-                <form action="/admin/shops/update" method="post">
+                <form action="${pageContext.request.contextPath}/admin/shops/update" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="${shop.id}">
 
                     <div class="row">

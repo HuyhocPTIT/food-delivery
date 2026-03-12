@@ -1,10 +1,14 @@
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
 <header class="shopee-header">
     <div class="container">
         <div class="navbar-top">
             <div class="navbar-left">
                 Trang chủ ManhMall | <a href="${pageContext.request.contextPath}/shops/register">Trở thành Người bán</a> | Kết nối
+                Trang chủ Shopee | <a href="${pageContext.request.contextPath}/shops/register">Trở thành Người bán</a> | <a href="${pageContext.request.contextPath}/shipper/register">Trở thành Shipper</a> | Kết nối
                 <i class="fab fa-facebook"></i> <i class="fab fa-instagram"></i>
             </div>
             <div class="navbar-right">
@@ -48,9 +52,12 @@
                 </button>
             </div>
 
-            <a class="cart-link" href="${pageContext.request.contextPath}/cart" aria-label="Giỏ hàng">
-                <i class="fas fa-shopping-cart cart-icon"></i>
+            <a href="${pageContext.request.contextPath}/cart" class="cart-icon">
+                <i class="fa fa-shopping-cart"></i>
+
+
             </a>
+
 
         </div>
     </div>

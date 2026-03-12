@@ -1,7 +1,8 @@
 package com.nhom.fooddelivery.controller;
 
 import com.nhom.fooddelivery.entity.Food;
-import com.nhom.fooddelivery.repository.FoodRepository; // Đảm bảo bạn đã tạo Interface này
+import com.nhom.fooddelivery.repository.FoodRepository;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,11 +15,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class HomeController {
 
-    // 1. Tiêm Repository để thao tác với DB
     @Autowired
     private FoodRepository foodRepository;
 
@@ -51,10 +52,29 @@ public class HomeController {
 
         // Gửi tham số sort hiện tại sang JSP để các nút phân trang không bị mất lọc
         model.addAttribute("currentSort", sort);
+    public String home(Model model, HttpSession session) {
 
-        // Giữ lại message cũ của bạn để test kết nối
+        // ===== LAY DANH SACH MON AN =====
+        List<Food> foodList = foodRepository.findAll();
+        model.addAttribute("foods", foodList);
+
+        // ===== TINH SO LUONG TRONG GIO HANG =====
+        Map<Long, Integer> cart =
+                (Map<Long, Integer>) session.getAttribute("cart");
+
+        int cartCount = 0;
+        if (cart != null) {
+            for (int qty : cart.values()) {
+                cartCount += qty;
+            }
+        }
+
+        model.addAttribute("cartCount", cartCount);
+
+        // Message test (co the xoa sau)
         model.addAttribute("message", "Connect Spring Boot and JSP was successful!");
 
-        return "index";
+        // ===== TRA VE TRANG CHU =====
+        return "index"; // hoac "index" tuy JSP cua ban
     }
 }

@@ -57,4 +57,17 @@ public class AdminUserController {
         }
         return "redirect:/admin/users";
     }
+
+    @GetMapping("/approve-shipper/{id}")
+    public String approveShipper(@PathVariable Long id, HttpSession session) {
+        if (!isAdmin(session)) return "redirect:/login";
+
+        User user = userRepo.findById(id).orElse(null);
+        if (user != null && "PENDING_SHIPPER".equals(user.getStatus())) {
+            user.setRole(UserRole.SHIPPER);
+            user.setStatus("ACTIVED");
+            userRepo.save(user);
+        }
+        return "redirect:/admin/users";
+    }
 }

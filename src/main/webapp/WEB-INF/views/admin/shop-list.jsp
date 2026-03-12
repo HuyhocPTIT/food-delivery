@@ -28,7 +28,6 @@
     <a href="${pageContext.request.contextPath}/admin/dashboard"><i class="fas fa-chart-line me-2"></i> Dashboard</a>
     <a href="${pageContext.request.contextPath}/admin/users"><i class="fas fa-users me-2"></i> Quản lý User</a>
     <a href="${pageContext.request.contextPath}/admin/shops" class="active"><i class="fas fa-store me-2"></i> Duyệt Cửa hàng</a>
-    <a href="${pageContext.request.contextPath}/admin/orders"><i class="fas fa-shopping-cart me-2"></i> Quản lý Đơn hàng</a>
     <hr class="mx-3">
     <a href="${pageContext.request.contextPath}/" target="_blank text-info"><i class="fas fa-external-link-alt me-2"></i> Xem trang chủ</a>
     <a href="${pageContext.request.contextPath}/logout" class="text-danger"><i class="fas fa-sign-out-alt me-2"></i> Đăng xuất</a>
@@ -54,11 +53,11 @@
         <table class="table table-hover align-middle">
             <thead class="table-light">
                 <tr>
-                    <th class="ps-3">ID</th>
-                    <th>Thông tin Shop</th>
-                    <th>Chủ sở hữu</th>
-                    <th>Trạng thái</th>
-                    <th class="text-center">Thao tác</th>
+                    <th class="col-id ps-3">ID</th>
+                    <th class="col-info">Thông tin Shop</th>
+                    <th class="col-owner text-center">Chủ sở hữu</th>
+                    <th class="col-status text-center">Trạng thái</th>
+                    <th class="col-action text-center">Thao tác</th>
                 </tr>
             </thead>
             <tbody>
@@ -67,45 +66,37 @@
                         <td class="ps-3 text-muted">#${shop.id}</td>
                         <td>
                             <div class="d-flex align-items-center">
-                                <div class="bg-light rounded p-2 me-3">
-                                    <i class="fas fa-shop fa-lg text-secondary"></i>
-                                </div>
-                                <div>
-                                    <div class="fw-bold text-dark">${shop.name}</div>
-                                    <small class="text-muted"><i class="fas fa-map-marker-alt me-1"></i> ${shop.address}</small>
+                                <div style="min-width: 0;"> <div class="fw-bold text-dark text-truncate-custom">${shop.name}</div>
+                                    <small class="text-muted d-block text-truncate-custom">
+                                        <i class="fas fa-map-marker-alt me-1"></i> ${shop.address}
+                                    </small>
                                 </div>
                             </div>
                         </td>
-                        <td>
+                        <td class="text-center">
                             <div class="fw-semibold">${shop.owner.fullName}</div>
-                            <small class="text-primary">@${shop.owner.username}</small>
+                            <small class="text-primary text-truncate-custom">@${shop.owner.username}</small>
                         </td>
-                        <td>
+                        <td class="text-center">
                             <c:choose>
                                 <c:when test="${shop.status == 'ACTIVE'}">
-                                    <span class="badge badge-active p-2 px-3"><i class="fas fa-check-circle me-1"></i> Hoạt động</span>
+                                    <span class="badge badge-active p-2 w-75"><i class="fas fa-check-circle me-1"></i> Hoạt động</span>
+                                </c:when>
+                                <c:when test="${shop.status == 'BANNED'}">
+                                    <span class="badge bg-danger p-2 w-75"><i class="fas fa-ban me-1"></i> Bị khóa</span>
                                 </c:when>
                                 <c:otherwise>
-                                    <span class="badge badge-pending p-2 px-3 text-dark"><i class="fas fa-clock me-1"></i> Chờ duyệt</span>
+                                    <span class="badge badge-pending p-2 w-75 text-dark"><i class="fas fa-clock me-1"></i> Chờ duyệt</span>
                                 </c:otherwise>
                             </c:choose>
                         </td>
                         <td class="text-center">
                             <div class="btn-group shadow-sm">
                                 <c:if test="${shop.status == 'PENDING'}">
-                                    <a href="/admin/shops/approve/${shop.id}" class="btn btn-sm btn-success" title="Duyệt ngay">
-                                        <i class="fas fa-check"></i> Duyệt
-                                    </a>
+                                    <a href="/admin/shops/approve/${shop.id}" class="btn btn-sm btn-success" title="Duyệt"><i class="fas fa-check"></i></a>
                                 </c:if>
-                                <a href="/admin/shops/edit/${shop.id}" class="btn btn-sm btn-light border" title="Chỉnh sửa">
-                                    <i class="fas fa-pen text-primary"></i>
-                                </a>
-                                <a href="/admin/shops/delete/${shop.id}"
-                                   class="btn btn-sm btn-light border"
-                                   onclick="return confirm('Bạn có chắc chắn muốn xóa cửa hàng này?')"
-                                   title="Xóa cửa hàng">
-                                    <i class="fas fa-trash text-danger"></i>
-                                </a>
+                                <a href="/admin/shops/edit/${shop.id}" class="btn btn-sm btn-light border" title="Sửa"><i class="fas fa-pen text-primary"></i></a>
+                                <a href="/admin/shops/delete/${shop.id}" class="btn btn-sm btn-light border" title="Xóa" onclick="return confirm('Xác nhận thao tác?')"><i class="fas fa-trash text-danger"></i></a>
                             </div>
                         </td>
                     </tr>

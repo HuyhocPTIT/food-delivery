@@ -74,3 +74,42 @@
     border-radius: 4px;
     color: #666;
 }
+.qty-form {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.qty-btn {
+    width: 28px;
+    height: 28px;
+    border: 1px solid #ddd;
+    background: #fff;
+    cursor: pointer;
+}
+
+.qty-input {
+    width: 50px;
+    text-align: center;
+}
+
+.cart-remove {
+    display: flex;
+    align-items: center;
+}
+
+.remove-btn {
+    background: none;
+    border: none;
+    color: #ee4d2d;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+}
+
+.remove-btn:hover {
+    text-decoration: underline;
+}
+
