@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <title>Trang chủ Mạnh Mall</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="<c:url value='/css/home.css?v=3'/>">
+    <link rel="stylesheet" href="<c:url value='/css/home.css?v=4'/>">
     <link rel="stylesheet" href="<c:url value='/css/home.css'/>">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
@@ -81,8 +81,8 @@
 
                             <img src="<c:url value='${f.image}'/>"
                                  alt="${f.name}"
-                                 onerror="this.src='https://via.placeholder.com/200x200?text=No+Image';"
-                                 style="width: 100%; height: 180px; object-fit: cover;">
+                                 onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=No+Image';"
+                                 style="width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-bottom: 1px solid #f0f0f0;">
 
                             <div class="product-info">
                                 <p class="product-name" style="color: #333; margin-bottom: 8px;">${f.name}</p>

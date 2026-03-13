@@ -95,7 +95,7 @@ public class DataSeeder implements CommandLineRunner {
         f1.setDescription("ngon vl");
         f1.setShop(shop);
         f1.setCategory(categoryRice);
-        f1.setImage("/images/com-ga-xoi-mo.jpg");
+        f1.setImage("/images/com-ga-xoi-mo.png");
 
         Food f3 = new Food();
         f3.setName("Cơm Gà Xé");
@@ -103,7 +103,7 @@ public class DataSeeder implements CommandLineRunner {
         f3.setDescription("cũng ngon vl");
         f3.setShop(shop);
         f3.setCategory(categoryRice);
-        f3.setImage("/images/com-ga-xe.jpg");
+        f3.setImage("/images/com-ga-xe.png");
 
         Food f4 = new Food();
         f4.setName("Cơm Gà Sốt Cay");
@@ -118,42 +118,42 @@ public class DataSeeder implements CommandLineRunner {
         f2.setPrice(30000.0);
         f2.setShop(shop3);
         f2.setCategory(categoryMilkTea);
-        f2.setImage("/images/Tra-Sua-Tran-Chau.jpeg");
+        f2.setImage("/images/Tra-Sua-Tran-Chau.png");
 
         Food f5 = new Food();
         f5.setName("Trà Sữa Khoai Môn");
         f5.setPrice(25000.0);
         f5.setShop(shop3);
         f5.setCategory(categoryMilkTea);
-        f5.setImage("/images/tra-sua-khoai-mon.jpg");
+        f5.setImage("/images/tra-sua-khoai-mon.png");
 
         Food f6 = new Food();
         f6.setName("Matcha Latte");
         f6.setPrice(35000.0);
         f6.setShop(shop3);
         f6.setCategory(categoryMilkTea);
-        f6.setImage("/images/matcha-latte.jpg");
+        f6.setImage("/images/matcha-latte.png");
 
         Food f7 = new Food();
         f7.setName("Bánh mì chảo");
         f7.setPrice(50000.0);
         f7.setShop(shop2);
         f7.setCategory(categoryBread);
-        f7.setImage("/images/banh-mi-chao.jpg");
+        f7.setImage("/images/banh-mi-chao.png");
 
         Food f8 = new Food();
         f8.setName("Bánh mì thập cẩm");
         f8.setPrice(30000.0);
         f8.setShop(shop2);
         f8.setCategory(categoryBread);
-        f8.setImage("/images/banh_mi_thap_cam.jpg");
+        f8.setImage("/images/banh_mi_thap_cam.png");
 
         Food f9 = new Food();
         f9.setName("Bánh mì không");
         f9.setPrice(100000.0);
         f9.setShop(shop2);
         f9.setCategory(categoryBread);
-        f9.setImage("/images/banh-mi-khong.jpg");
+        f9.setImage("/images/banh-mi-khong.png");
 
         foodRepo.saveAll(Arrays.asList(f1, f2, f3, f4, f5, f6, f7, f8, f9));
 
