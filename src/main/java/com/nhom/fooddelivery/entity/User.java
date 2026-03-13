@@ -33,6 +33,7 @@ public class User {
 
     // Một người dùng (Merchant) có thể sở hữu một quán ăn
     @OneToOne(mappedBy = "owner")
+    @JoinColumn(name = "shop_id")
     private Shop shop;
 
     // Một người dùng (Shipper) có thể đi giao nhiều đơn

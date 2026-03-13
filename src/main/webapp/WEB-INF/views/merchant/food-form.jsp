@@ -27,19 +27,6 @@
 
     <label>Mô tả</label>
     <textarea name="description">${food.description}</textarea>
-
-    <label>Shop</label>
-    <select name="shopId" required>
-        <c:forEach items="${shops}" var="shop">
-            <option value="${shop.id}"
-                    <c:if test="${food.shop != null && food.shop.id == shop.id}">
-                        selected
-                    </c:if>>
-                    ${shop.name}
-            </option>
-        </c:forEach>
-    </select>
-
     <label>Danh mục</label>
     <select name="categoryId" required>
         <c:forEach items="${categories}" var="cate">
