@@ -27,7 +27,8 @@ public class HomeController {
                         @RequestParam(defaultValue = "id,desc") String sort,
                         @RequestParam(required = false) Double minPrice,
                         @RequestParam(required = false) Double maxPrice,
-                        @RequestParam(required = false) Long categoryId) {
+                        @RequestParam(required = false) Long categoryId,
+                        @RequestParam(required = false) String keyword) {
 
         int pageSize = 9;
 
@@ -37,21 +38,30 @@ public class HomeController {
         Sort.Direction direction = sortParts[1].equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
         Pageable pageable = PageRequest.of(page, pageSize, Sort.by(direction, sortBy));
 
-        // 2. Lọc giá
         Page<Food> foodPage;
 
-        if (categoryId != null) {
-            // Lọc theo danh mục
+        // 1. ƯU TIÊN TÌM KIẾM (Nếu có gõ chữ vào ô Search)
+        if (keyword != null && !keyword.isEmpty()) {
+            foodPage = foodRepository.findByNameContainingIgnoreCase(keyword, pageable);
+        }
+        // 2. LỌC THEO DANH MỤC
+        else if (categoryId != null) {
             foodPage = foodRepository.findByCategoryId(categoryId, pageable);
-        } else if (minPrice != null && maxPrice != null) {
+        }
+        // 3. LỌC THEO GIÁ
+        else if (minPrice != null && maxPrice != null) {
             foodPage = foodRepository.findByPriceBetween(minPrice, maxPrice, pageable);
         } else if (minPrice != null) {
             foodPage = foodRepository.findByPriceGreaterThanEqual(minPrice, pageable);
         } else if (maxPrice != null) {
             foodPage = foodRepository.findByPriceLessThanEqual(maxPrice, pageable);
-        } else {
+        }
+        // 4. MẶC ĐỊNH HIỆN TẤT CẢ
+        else {
             foodPage = foodRepository.findAll(pageable);
         }
+
+        model.addAttribute("keyword", keyword); // Nhớ dòng này để giữ chữ trong ô Search
 
         // 3. Đẩy dữ liệu sang JSP
         model.addAttribute("foods", foodPage.getContent());

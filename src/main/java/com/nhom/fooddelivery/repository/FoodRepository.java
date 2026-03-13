@@ -39,4 +39,7 @@ public interface   FoodRepository extends JpaRepository<Food, Long> {
 
     // Cập nhật lại logic nếu muốn kết hợp cả Lọc Giá + Danh Mục (Nâng cao):
     Page<Food> findByCategoryIdAndPriceBetween(Long categoryId, Double min, Double max, Pageable pageable);
+
+    // Tìm món ăn theo tên, chứa từ khóa và không phân biệt hoa thường
+    Page<Food> findByNameContainingIgnoreCase(String name, Pageable pageable);
 }
