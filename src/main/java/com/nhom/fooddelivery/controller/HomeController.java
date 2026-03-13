@@ -26,7 +26,8 @@ public class HomeController {
                         @RequestParam(defaultValue = "0") int page,
                         @RequestParam(defaultValue = "id,desc") String sort,
                         @RequestParam(required = false) Double minPrice,
-                        @RequestParam(required = false) Double maxPrice) {
+                        @RequestParam(required = false) Double maxPrice,
+                        @RequestParam(required = false) Long categoryId) {
 
         int pageSize = 9;
 
@@ -38,7 +39,11 @@ public class HomeController {
 
         // 2. Lọc giá
         Page<Food> foodPage;
-        if (minPrice != null && maxPrice != null) {
+
+        if (categoryId != null) {
+            // Lọc theo danh mục
+            foodPage = foodRepository.findByCategoryId(categoryId, pageable);
+        } else if (minPrice != null && maxPrice != null) {
             foodPage = foodRepository.findByPriceBetween(minPrice, maxPrice, pageable);
         } else if (minPrice != null) {
             foodPage = foodRepository.findByPriceGreaterThanEqual(minPrice, pageable);
@@ -55,6 +60,8 @@ public class HomeController {
         model.addAttribute("currentSort", sort);
         model.addAttribute("minPrice", minPrice);
         model.addAttribute("maxPrice", maxPrice);
+        model.addAttribute("categoryId", categoryId);
+
 
         // 4. Giỏ hàng
         Map<Long, Integer> cart = (Map<Long, Integer>) session.getAttribute("cart");

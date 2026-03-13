@@ -33,4 +33,10 @@ public interface   FoodRepository extends JpaRepository<Food, Long> {
 
     // 3. Lọc chỉ theo Max (Giá nhỏ hơn hoặc bằng)
     Page<Food> findByPriceLessThanEqual(Double max, Pageable pageable);
+
+    // Trong file FoodRepository.java
+    Page<Food> findByCategoryId(Long categoryId, Pageable pageable);
+
+    // Cập nhật lại logic nếu muốn kết hợp cả Lọc Giá + Danh Mục (Nâng cao):
+    Page<Food> findByCategoryIdAndPriceBetween(Long categoryId, Double min, Double max, Pageable pageable);
 }

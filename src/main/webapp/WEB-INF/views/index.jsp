@@ -20,21 +20,32 @@
         <aside class="sidebar">
             <h3 class="filter-title"><i class="fas fa-list"></i> Danh mục</h3>
             <ul class="cat-list">
-                <li><a href="#">Cơm Gà</a></li>
-                <li><a href="#">Trà Sữa</a></li>
-                <li><a href="#">Bánh Mì</a></li>
+                <li><a href="?categoryId=1">Cơm Gà</a></li>
+                <li><a href="?categoryId=2">Trà Sữa</a></li>
+                <li><a href="?categoryId=3">Bánh Mì</a></li>
+                <li style="border-top: 1px dashed #ddd;"><a href="${pageContext.request.contextPath}/">Tất cả món ăn</a></li>
             </ul>
             <div class="price-range-filter" style="margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px;">
                     <h3 class="filter-title" style="font-size: 16px; margin-bottom: 15px;">Khoảng Giá</h3>
                     <form action="${pageContext.request.contextPath}/" method="GET">
                         <div class="price-input-group" style="display: flex; align-items: center; gap: 5px; margin-bottom: 15px;">
-                            <input type="number" name="minPrice" value="${minPrice}" placeholder="₫ TỪ" class="price-input">
+                            <input type="number" name="minPrice"
+                                   value="<fmt:formatNumber value='${minPrice}' pattern='#' />"
+                                   placeholder="₫ TỪ" class="price-input">
+
                             <span style="color: #bdbdbd">-</span>
-                            <input type="number" name="maxPrice" value="${maxPrice}" placeholder="₫ ĐẾN" class="price-input">
+
+                            <input type="number" name="maxPrice"
+                                   value="<fmt:formatNumber value='${maxPrice}' pattern='#' />"
+                                   placeholder="₫ ĐẾN" class="price-input">
                         </div>
                         <button type="submit" class="btn-apply">ÁP DỤNG</button>
+                        <a href="${pageContext.request.contextPath}/"
+                            style="display: block; text-align: center; margin-top: 10px; font-size: 12px; color: #666; text-decoration: none; border: 1px solid #ddd; padding: 5px; border-radius: 2px; background: #fff;">
+                            XÓA TẤT CẢ
+                        </a>
                     </form>
-                </div>
+            </div>
         </aside>
 
         <div class="main-content">
@@ -61,16 +72,26 @@
 
             <div class="product-grid">
                 <c:forEach items="${foods}" var="f">
-                    <a href="${pageContext.request.contextPath}/foods/detail/${f.id}" class="product-link">
+                    <a href="${pageContext.request.contextPath}/foods/detail/${f.id}"
+                       class="product-link"
+                       style="text-decoration: none;">
+
                         <div class="product-card">
                             <span class="mall-badge">Mall</span>
-                            <img src="${pageContext.request.contextPath}${f.image}" alt="${f.name}">
+
+                            <img src="<c:url value='${f.image}'/>"
+                                 alt="${f.name}"
+                                 onerror="this.src='https://via.placeholder.com/200x200?text=No+Image';"
+                                 style="width: 100%; height: 180px; object-fit: cover;">
+
                             <div class="product-info">
-                                <p class="product-name">${f.name}</p>
-                                <p class="product-price">
+                                <p class="product-name" style="color: #333; margin-bottom: 8px;">${f.name}</p>
+
+                                <p class="product-price" style="text-decoration: none;">
                                     <fmt:formatNumber value="${f.price}" type="number" groupingUsed="true"/> đ
                                 </p>
-                                <p class="product-description">${f.description}</p>
+
+                                <p class="product-description" style="color: #666; font-size: 12px;">${f.description}</p>
                             </div>
                         </div>
                     </a>
@@ -83,11 +104,12 @@
                     </a>
                 </c:if>
 
-                <c:forEach begin="0" end="${totalPages - 1}" var="i">
-                    <a href="?page=${i}&sort=${currentSort}" class="pagination-btn ${currentPage == i ? 'active' : ''}">
-                        ${i + 1}
-                    </a>
-                </c:forEach>
+               <c:forEach begin="0" end="${totalPages - 1}" var="i">
+                   <a href="?page=${i}&sort=${currentSort}${not empty categoryId ? '&categoryId=' += categoryId : ''}${not empty minPrice ? '&minPrice=' += minPrice : ''}${not empty maxPrice ? '&maxPrice=' += maxPrice : ''}"
+                      class="pagination-btn ${currentPage == i ? 'active' : ''}">
+                       ${i + 1}
+                   </a>
+               </c:forEach>
 
                 <c:if test="${currentPage < totalPages - 1}">
                     <a href="?page=${currentPage + 1}" class="pagination-btn">
