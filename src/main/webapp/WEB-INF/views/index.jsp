@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <title>Trang chủ Mạnh Mall</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="<c:url value='/css/home.css?v=4'/>">
+    <link rel="stylesheet" href="<c:url value='/css/home.css?v=2'/>">
     <link rel="stylesheet" href="<c:url value='/css/home.css'/>">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
@@ -55,9 +55,21 @@
 
             <div class="sort-bar">
                 <span>Sắp xếp theo: </span>
-                <button class="sort-btn active">Phổ biến</button>
-                <button class="sort-btn">Mới nhất</button>
-                <button class="sort-btn">Best Seller</button>
+
+                <a href="?sort=name,asc"
+                   class="sort-btn ${currentSort == 'name,asc' ? 'active' : ''}">
+                   Phổ biến
+                </a>
+
+                <a href="?sort=id,desc"
+                   class="sort-btn ${currentSort == 'id,desc' || empty currentSort ? 'active' : ''}">
+                   Mới nhất
+                </a>
+
+                <a href="?sort=price,desc"
+                   class="sort-btn ${currentSort == 'price,desc' ? 'active' : ''}">
+                   Best Seller
+                </a>
                 <div class="price-filter-dropdown">
                         <div class="dropdown-label">
                             <span>Giá</span>

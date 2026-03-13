@@ -44,17 +44,22 @@
                 <span class="mall-text">Mạnh Mall</span>
             </a>
 
-            <div class="search-box">
-                <input type="text" placeholder="Tìm trong Mạnh Mall" class="search-input">
-                <button class="search-btn">
+            <form action="${pageContext.request.contextPath}/" method="GET" class="search-box" style="display: flex; width: 100%;">
+
+                <input type="text"
+                       name="keyword"
+                       value="${keyword}"
+                       placeholder="Tìm trong Mạnh Mall"
+                       class="search-input">
+
+                <button type="submit" class="search-btn">
                     <i class="fas fa-search"></i>
                 </button>
-            </div>
+
+            </form>
 
             <a href="${pageContext.request.contextPath}/cart" class="cart-icon">
                 <i class="fa fa-shopping-cart"></i>
-
-
             </a>
 
 
