@@ -109,26 +109,24 @@
                     </a>
                 </c:forEach>
             </div>
-            <div class="pagination">
-                <c:if test="${currentPage > 0}">
-                    <a href="?page=${currentPage - 1}" class="pagination-btn">
-                        <i class="fas fa-chevron-left"></i>
-                    </a>
-                </c:if>
+            <c:if test="${totalPages > 0}">
+                <div class="pagination">
+                    <c:forEach var="i" begin="1" end="${totalPages}">
+                        <a href="?page=${i-1}&sort=${currentSort}${not empty keyword ? '&keyword=' += keyword : ''}${not empty categoryId ? '&categoryId=' += categoryId : ''}"
+                           class="page-btn ${currentPage == i-1 ? 'active' : ''}">
+                            ${i}
+                        </a>
+                    </c:forEach>
+                </div>
+            </c:if>
 
-               <c:forEach begin="0" end="${totalPages - 1}" var="i">
-                   <a href="?page=${i}&sort=${currentSort}${not empty categoryId ? '&categoryId=' += categoryId : ''}${not empty minPrice ? '&minPrice=' += minPrice : ''}${not empty maxPrice ? '&maxPrice=' += maxPrice : ''}"
-                      class="pagination-btn ${currentPage == i ? 'active' : ''}">
-                       ${i + 1}
-                   </a>
-               </c:forEach>
-
-                <c:if test="${currentPage < totalPages - 1}">
-                    <a href="?page=${currentPage + 1}" class="pagination-btn">
-                        <i class="fas fa-chevron-right"></i>
-                    </a>
-                </c:if>
-            </div>
+            <c:if test="${totalPages == 0}">
+                <div style="text-align: center; padding: 50px; color: #666;">
+                    <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/assets/a60759ad1dabe909c46a817ecbf71878.png" style="width: 100px; margin-bottom: 20px;">
+                    <p>Tiếc quá! Không tìm thấy món nào phù hợp với khoảng giá này.</p>
+                    <a href="${pageContext.request.contextPath}/" style="color: #ee4d2d; text-decoration: none;">Xóa bộ lọc và tìm lại</a>
+                </div>
+            </c:if>
         </div> </div> </div> ```
 
 
