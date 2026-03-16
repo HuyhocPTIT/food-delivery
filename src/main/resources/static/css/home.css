@@ -47,11 +47,8 @@ body {
     min-width: 0;
 }
 
-/* =========================================
-   2. HEADER & NAVIGATION
-   ========================================= */
 .shopee-header {
-    background-color: #ee4d2d;
+    background-color: #EE4D2D !important;
     color: white;
     padding: 10px 0;
 }
@@ -95,7 +92,6 @@ body {
     background: white;
     padding: 3px;
     border-radius: 2px;
-    /* Bỏ flex: 1 nếu có, vì flex: 1 sẽ bắt nó chiếm hết chỗ trống */
 }
 
 .search-input {
@@ -108,9 +104,9 @@ body {
 }
 
 .search-btn {
-    background-color: #fb5533;
+    background-color: #EE4D2D !important;
     border: none;
-    color: white;
+    color: white !important;
     padding: 0 22px;
     cursor: pointer;
     border-radius: 2px;
@@ -329,6 +325,29 @@ body {
     text-align: center;
     color: #888;
     font-size: 12px;
+}
+/* Container bọc ngoài */
+.footer-cert {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 30px;
+    margin: 30px 0;
+    width: 100%; /* Đảm bảo nó chiếm hết chiều ngang để căn giữa được */
+}
+
+/* Ép 2 cái ảnh nhỏ lại */
+.certificate-img {
+    height: 45px !important;  /* SIẾT CHIỀU CAO Ở ĐÂY */
+    width: auto !important;   /* Tự co chiều ngang */
+    display: block !important;
+    object-fit: contain;
+}
+
+/* Cho cái vân tay đứng thẳng hàng */
+.footer-fingerprint {
+    display: flex;
+    align-items: center;
 }
 /* =========================================
    7.Phân Trang

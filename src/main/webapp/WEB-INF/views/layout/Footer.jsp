@@ -9,19 +9,18 @@
         </div>
 
         <div class="footer-cert">
-            <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/assets/3ce1482e340acc93.png" alt="Bộ Công Thương" width="120">
-            <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/assets/3ce1482e340acc93.png" alt="Bộ Công Thương" width="120">
+            <img src="/images/logo1.png" alt="BCT" class="certificate-img">
+            <img src="/images/logo2.png" alt="ATTP" class="certificate-img">
             <div class="footer-fingerprint">
                 <i class="fas fa-fingerprint" style="font-size: 40px; color: #ee4d2d;"></i>
             </div>
         </div>
-
         <div class="footer-company-info">
-            <p>Công ty TNHH Shopee</p>
-            <p>Địa chỉ: Tầng 4-5-6, Tòa nhà Capital Place, số 29 đường Liễu Giai, Phường Ngọc Khánh, Quận Ba Đình, Thành phố Hà Nội, Việt Nam. Tổng đài hỗ trợ: 19001221 - Email: cskh@hotro.shopee.vn</p>
-            <p>Chịu Trách Nhiệm Quản Lý Nội Dung: Nguyễn Bùi Anh Tuấn - Điện thoại liên hệ: 024 73081221 (ext 4678)</p>
-            <p>Mã số doanh nghiệp: 0106773786 do Sở Kế hoạch & Đầu tư TP Hà Nội cấp lần đầu ngày 10/02/2015</p>
-            <p>© 2015 - Bản quyền thuộc về Công ty TNHH Shopee</p>
+            <p>Công ty TNHH 1 mk tao</p>
+            <p>Địa chỉ: Tầng 4, p404, số 1 ngõ 121 Ngô Thỳ Sỹ, Phường Vạn Phúc, Quận Hà Đông, Thành phố Hà Nội, Việt Nam. Tổng đài hỗ trợ: 0972195705 - Email: bmanh812205@gmail.com</p>
+            <p>Chịu Trách Nhiệm Quản Lý Nội Dung: Nguyễn Việt Hùng - Điện thoại liên hệ: 039 9706485 (ext 4678)</p>
+            <p>Mã số doanh nghiệp: 123456 do Sở Kế hoạch & Đầu tư TP Hà Nội cấp lần đầu ngày 1/1/2026</p>
+            <p>© 2026 - Bản quyền thuộc về Công ty TNHH 1 mk t</p>
         </div>
     </div>
 </footer>
