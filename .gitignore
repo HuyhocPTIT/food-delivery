@@ -3,6 +3,9 @@ target/
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+/src/main/resources/application.properties
+/src/main/resources/ResetDB.java
+/src/main/java/com/nhom/fooddelivery/DataSeeder.java
 
 ### STS ###
 .apt_generated

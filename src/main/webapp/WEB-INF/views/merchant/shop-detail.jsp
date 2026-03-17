@@ -21,8 +21,9 @@
     <%-- Nếu người đang xem chính là chủ quán này --%>
         <c:if test="${sessionScope.currentUser.id == shop.owner.id}">
             <div class="merchant-tools">
-                <a href="/shops/my-shop/edit" class="btn btn-sm btn-outline-secondary">Sửa thông tin quán</a>
-                <a href="/foods/create?shopId=${shop.id}" class="btn btn-sm btn-success">Thêm món mới</a>
+                <a href="/shops/edit" class="btn btn-sm btn-outline-secondary">Sửa thông tin quán</a>
+                <a href="/shops/foods" class="btn btn-sm btn-primary">Quản lý món ăn</a>
+                <a href="/shops/foods/create" class="btn btn-sm btn-success">Thêm món mới</a>
             </div>
         </c:if>
 </body>

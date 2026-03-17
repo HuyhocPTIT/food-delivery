@@ -9,7 +9,7 @@
 
 <h2>🍔 DANH SÁCH MÓN ĂN</h2>
 
-<a class="btn-add" href="/foods/create">➕ Thêm món</a>
+<a class="btn-add" href="/shops/foods/create">➕ Thêm món</a>
 
 <table>
     <tr>
@@ -44,9 +44,9 @@
             <td>${food.shop.name}</td>
             <td>${food.category.name}</td>
             <td>
-                <a class="btn-edit" href="/foods/edit/${food.id}">✏️</a>
+                <a class="btn-edit" href="/shops/foods/edit/${food.id}">✏️</a>
                 <a class="btn-delete"
-                   href="/foods/delete/${food.id}"
+                   href="/shops/foods/delete/${food.id}"
                    onclick="return confirm('Xóa món này?')">🗑</a>
             </td>
         </tr>

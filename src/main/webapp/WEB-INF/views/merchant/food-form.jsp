@@ -12,7 +12,7 @@
     <c:if test="${food.id != null}">✏️ Sửa món ăn</c:if>
 </h2>
 
-<form action="/foods/save" method="post">
+<form action="<c:if test="${food.id == null}">/shops/foods/save</c:if><c:if test="${food.id != null}">/shops/foods/update/${food.id}</c:if>" method="post" enctype="multipart/form-data">
 
     <input type="hidden" name="id" value="${food.id}">
 
@@ -22,8 +22,11 @@
     <label>Giá</label>
     <input type="number" step="0.01" name="price" value="${food.price}" required>
 
-    <label>Link hình ảnh</label>
-    <input type="file" name="image" value="${food.image}" accept="image/*">
+    <label>Hình ảnh</label>
+    <input type="file" name="imageFile" accept="image/*">
+    <c:if test="${not empty food.image}">
+        <img src="${food.image}" alt="Current Image" style="max-width: 200px;">
+    </c:if>
 
     <label>Mô tả</label>
     <textarea name="description">${food.description}</textarea>
@@ -41,7 +44,7 @@
 
     <div class="form-actions">
         <button type="submit">💾 Lưu</button>
-        <a class="btn-back" href="/foods">⬅ Quay lại</a>
+        <a class="btn-back" href="/shops/foods">⬅ Quay lại</a>
     </div>
 
 </form>

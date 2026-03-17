@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<form action="/foods/save" method="post">
+<form action="/shops/update" method="post" enctype="multipart/form-data">
 
     <input type="hidden" name="id" value="${shop.id}">
 
@@ -18,11 +18,14 @@
     <input type="text"  name="address" value="${shop.address}" required>
 
     <label>Hình ảnh</label>
-    <input type="file" name="image" value="${shop.image}" accept="image/*">
+    <input type="file" name="imageFile" accept="image/*">
+    <c:if test="${not empty shop.image}">
+        <img src="${shop.image}" alt="Current Image" style="max-width: 200px;">
+    </c:if>
 
     <div class="form-actions">
         <button type="submit">💾 Lưu</button>
-        <a class="btn-back" href="/shops/${shop.id}">⬅ Quay lại</a>
+        <a class="btn-back" href="/shops/edit">⬅ Quay lại</a>
     </div>
 
 </form>
