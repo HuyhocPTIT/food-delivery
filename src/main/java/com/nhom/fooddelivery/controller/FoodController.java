@@ -1,5 +1,6 @@
 package com.nhom.fooddelivery.controller;
 
+import com.nhom.fooddelivery.constant.UserRole;
 import com.nhom.fooddelivery.entity.*;
 import com.nhom.fooddelivery.repository.*;
 
@@ -75,76 +76,53 @@ public class FoodController {
 
 
     // =======================
-    // 3️⃣ Form tạo food
+    // 3️⃣ Form tạo food (Redirect to shops)
     // =======================
     @GetMapping("/create")
-    public String showCreateForm(Model model) {
-
-        model.addAttribute("food", new Food());
-        model.addAttribute("categories", categoryRepository.findAll());
-
-        return "merchant/food-form";
-    }
-
-
-    // =======================
-    // 4️⃣ Lưu food
-    // =======================
-    @PostMapping("/save")
-    public String saveFood(
-            @ModelAttribute Food food,
-            @RequestParam Long categoryId,
-            HttpSession session
-    ) {
-
-        User user = (User) session.getAttribute("currentUser");
-
-        if(user == null){
+    public String showCreateForm(HttpSession session) {
+        User currentUser = (User) session.getAttribute("currentUser");
+        if (currentUser == null || currentUser.getRole() != UserRole.MERCHANT) {
             return "redirect:/login";
         }
+        return "redirect:/shops/foods/create";
+    }
 
-        Shop shop = user.getShop();
 
-        Category category = categoryRepository
-                .findById(categoryId)
-                .orElse(null);
-
-        food.setShop(shop);
-        food.setCategory(category);
-
-        foodRepository.save(food);
-
-        return "redirect:/foods";
+    // =======================
+    // 4️⃣ Lưu food (Redirect to shops)
+    // =======================
+    @PostMapping("/save")
+    public String saveFood(HttpSession session) {
+        User currentUser = (User) session.getAttribute("currentUser");
+        if (currentUser == null || currentUser.getRole() != UserRole.MERCHANT) {
+            return "redirect:/login";
+        }
+        return "redirect:/shops/foods/save";
     }
 
     // =======================
-    // 5️⃣ Form sửa food
+    // 5️⃣ Form sửa food (Redirect to shops)
     // =======================
     @GetMapping("/edit/{id}")
-    public String editFood(@PathVariable Long id, Model model) {
-
-        Food food = foodRepository.findById(id).orElse(null);
-
-        if (food == null) {
-            return "redirect:/foods";
+    public String editFood(@PathVariable Long id, HttpSession session) {
+        User currentUser = (User) session.getAttribute("currentUser");
+        if (currentUser == null || currentUser.getRole() != UserRole.MERCHANT) {
+            return "redirect:/login";
         }
-
-        model.addAttribute("food", food);
-        model.addAttribute("categories", categoryRepository.findAll());
-
-        return "merchant/food-form";
+        return "redirect:/shops/foods/edit/" + id;
     }
 
 
     // =======================
-    // 6️⃣ Xóa food
+    // 6️⃣ Xóa food (Redirect to shops)
     // =======================
     @GetMapping("/delete/{id}")
-    public String deleteFood(@PathVariable Long id) {
-
-        foodRepository.deleteById(id);
-
-        return "redirect:/foods";
+    public String deleteFood(@PathVariable Long id, HttpSession session) {
+        User currentUser = (User) session.getAttribute("currentUser");
+        if (currentUser == null || currentUser.getRole() != UserRole.MERCHANT) {
+            return "redirect:/login";
+        }
+        return "redirect:/shops/foods/delete/" + id;
     }
 
 
