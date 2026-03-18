@@ -15,10 +15,7 @@
 
 <div class="shipper-container">
     <div class="shipper-header">
-        <div>
-            <h2>Tổng quan công việc Shipper</h2>
-            <span class="shipper-badge">Dashboard</span>
-        </div>
+        <h2>Tổng quan công việc Shipper</h2>
         <nav class="shipper-nav">
             <a href="${pageContext.request.contextPath}/shipper/dashboard" class="tab active">Tổng quan</a>
             <a href="${pageContext.request.contextPath}/shipper/waiting" class="tab">Đơn chờ nhận</a>
@@ -27,7 +24,44 @@
         </nav>
     </div>
 
+    <!-- Shipper Profile Card -->
+    <div class="shipper-card shipper-profile-card">
+        <div class="shipper-profile">
+            <div class="shipper-avatar">
+                <c:choose>
+                    <c:when test="${not empty shipper.avatar}">
+                        <img src="${pageContext.request.contextPath}${shipper.avatar}" alt="${shipper.fullName}">
+                    </c:when>
+                    <c:otherwise>
+                        <div class="avatar-placeholder">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+            <div class="shipper-info">
+                <h3>${shipper.fullName}</h3>
+                <div class="shipper-details">
+                    <div class="detail-item">
+                        <i class="fas fa-motorcycle"></i>
+                        <span>
+                            <c:choose>
+                                <c:when test="${not empty shipper.licensePlate}">
+                                    ${shipper.licensePlate}
+                                </c:when>
+                                <c:otherwise>
+                                    Chưa cập nhật biển số
+                                </c:otherwise>
+                            </c:choose>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="shipper-card">
+        <h3 style="margin-top: 0;">Thống kê tổng quan</h3>
         <div class="shipper-summary">
             <div class="summary-item">
                 <h3>Đơn chờ nhận</h3>
