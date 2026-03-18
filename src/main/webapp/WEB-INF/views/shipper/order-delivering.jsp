@@ -21,7 +21,7 @@
     </div>
     <nav class="shipper-nav">
       <a href="${pageContext.request.contextPath}/shipper/dashboard" class="tab">Tổng quan</a>
-      <a href="${pageContext.request.contextPath}/shipper/dashboard" class="tab">Đơn chờ nhận</a>
+      <a href="${pageContext.request.contextPath}/shipper/waiting" class="tab">Đơn chờ nhận</a>
       <a href="${pageContext.request.contextPath}/shipper/delivering" class="tab active">Đang giao</a>
       <a href="${pageContext.request.contextPath}/shipper/stats" class="tab">Thống kê</a>
     </nav>
@@ -53,7 +53,7 @@
               <td>${order.customer.fullName}</td>
               <td>${order.address}</td>
               <td>${order.phone}</td>
-              <td><fmt:formatNumber value="${order.totalPrice}" groupingUsed="true" maxFractionDigits="0"/></td>
+              <td><fmt:formatNumber value="${order.totalPrice}" groupingUsed="true" maxFractionDigits="0"/> đ</td>
               <td>Đang giao</td>
               <td>
                 <form action="${pageContext.request.contextPath}/orders/complete" method="post">

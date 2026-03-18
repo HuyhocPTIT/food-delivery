@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 import static com.nhom.fooddelivery.constant.UserRole.SHIPPER;
 
@@ -41,27 +41,26 @@ public class ShipperController {
         List<Order> deliveringOrders = orderRepository.findByShipperIdAndStatus(currentUser.getId(), "SHIPPING");
         Long deliveringCount = (long) deliveringOrders.size();
         Long deliveredCount =orderRepository.countByShipperIdAndStatus(currentUser.getId(), "DELIVERED");
-        Double avgRating = orderRepository.getAverageRatingByShipper(currentUser.getId());
-        avgRating = avgRating != null ? avgRating : 0.0;
+        Double avgRating = Optional.ofNullable(orderRepository.getAverageRatingByShipper(currentUser.getId())).orElse(0.0);
 
         model.addAttribute("readyCount", readyCount);
         model.addAttribute("deliveringCount", deliveringCount);
         model.addAttribute("deliveredCount", deliveredCount);
         model.addAttribute("avgRating", avgRating);
         model.addAttribute("deliveringOrders", deliveringOrders);
+        model.addAttribute("shipper", currentUser);
         return "shipper/shipper-dashboard";
     }
 
     @GetMapping("/waiting")
-    public String watting(HttpSession session, Model model){
-        User currenUser = (User) session.getAttribute("currentUser");
-        if (currenUser == null || currenUser.getRole() != SHIPPER){
+    public String waiting(HttpSession session, Model model){
+        User currentUser = (User) session.getAttribute("currentUser");
+        if (currentUser == null || currentUser.getRole() != SHIPPER){
             return "redirect:/login";
         }
 
         List<Order> orders = orderRepository.findByStatus("READY");
         model.addAttribute("orders", orders);
-        model.addAttribute("shipperId", session.getId());
         return "shipper/order-waiting";
     }
 
@@ -86,32 +85,23 @@ public class ShipperController {
             return "redirect:/login";
         }
 
-        Long deliveredCount = 0L;
-        Double totalEarnings = 0.0;
-        Double avgRating = 0.0;
-        List<Order> completedOrders = new ArrayList<>();
-
-        deliveredCount =
+        Long deliveredCount =
                 orderRepository.countByShipperIdAndStatus(currentUser.getId(), "DELIVERED");
 
-        totalEarnings =
-                orderRepository.sumEarningsByShipper(currentUser.getId());
+        Double totalEarnings =
+                Optional.ofNullable(orderRepository.sumEarningsByShipper(currentUser.getId())).orElse(0.0);
 
-        avgRating =
-                orderRepository.getAverageRatingByShipper(currentUser.getId());
+        Double avgRating =
+                Optional.ofNullable(orderRepository.getAverageRatingByShipper(currentUser.getId())).orElse(0.0);
 
-        completedOrders =
+        List<Order> completedOrders =
                 orderRepository.findByShipperIdAndStatus(currentUser.getId(), "DELIVERED");
-
-        totalEarnings = totalEarnings != null ? totalEarnings : 0.0;
-        avgRating = avgRating != null ? avgRating : 0.0;
 
         // Format giá tiền VN
         NumberFormat nf = NumberFormat.getInstance(new Locale("vi", "VN"));
         String totalEarningsStr = nf.format(totalEarnings);
 
         model.addAttribute("deliveredCount", deliveredCount);
-//        model.addAttribute("totalEarnings", df.format(totalEarnings));
         model.addAttribute("totalEarnings", totalEarningsStr);
         model.addAttribute("avgRating", avgRating);
         model.addAttribute("completedOrders", completedOrders);
@@ -125,7 +115,7 @@ public class ShipperController {
         if (user == null) return "redirect:/login";
 
         // Nếu đã là Shipper rồi thì không cần đăng ký nữa
-        if ("SHIPPER".equals(user.getRole())) return "redirect:/";
+        if (user.getRole() == SHIPPER) return "redirect:/";
 
         return "shipper/shipper-register";
     }
